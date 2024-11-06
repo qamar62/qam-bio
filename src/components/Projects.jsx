@@ -6,24 +6,25 @@ const Projects = () => {
       title: 'Travel and Tour Booking App ( WEB )',
       description: 'Travel System with payment gatway integration, Backend CRM ',
       image: 'https://via.placeholder.com/400x200',
-      link: 'https://www.arabianknightstours.com,
+      link: 'https://www.arabianknightstours.com',
     },
     {
       title: 'Car Rental System ',
       description: 'Car rental booking system with Backend',
       image: 'https://via.placeholder.com/400x200',
-      link: 'https://www.justdrivecar.me,
+      link: 'https://www.justdrivecar.me',
     },
     {
       title: 'E Commerce Website',
       description: 'React JS Application',
       image: 'https://via.placeholder.com/400x200',
-      link: 'https://www.camsfix.com,
+      link: 'https://www.camsfix.com',
     },
     {
       title: 'DashBoard Using Djnago',
       description: 'Dashboard with react and Django ',
       image: 'https://via.placeholder.com/400x200',
+      link: '',
     },
   ]
 
