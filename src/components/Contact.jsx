@@ -8,7 +8,7 @@ const Contact = () => {
           <p className="text-4xl font-bold inline border-b-4 border-[#ff5e62] text-gray-800 dark:text-white">Contact</p>
           <p className="py-4 text-gray-600 dark:text-gray-400">Submit the form below or shoot me an email - myemail@gmail.com</p>
         </div>
-        <form method="POST" action="https://getform.io/f/YOUR_FORM_ID" className="flex flex-col">
+        <form method="POST" action="https://getform.io/f/bejjreoa" className="flex flex-col">
           <input 
             className="bg-white dark:bg-gray-800 p-2 text-gray-800 dark:text-white rounded-md border border-gray-300 dark:border-gray-700 focus:outline-none focus:ring-2 focus:ring-[#ff5e62] dark:focus:ring-[#ff9966]" 
             type="text" 
