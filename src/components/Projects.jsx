@@ -25,7 +25,7 @@ const Projects = () => {
   ]
 
   return (
-    <div name="projects" className="w-full md:h-screen">
+    <div name="projects" className="w-full py-16">
       <div className="max-w-[1200px] mx-auto p-4 flex flex-col justify-center w-full h-full">
         <div className="pb-8">
           <p className="text-4xl font-bold inline border-b-4 border-[#ff5e62] text-gray-800 dark:text-white">Projects</p>

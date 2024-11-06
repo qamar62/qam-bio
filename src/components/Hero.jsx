@@ -21,7 +21,7 @@ const Hero = () => {
           </div>
         </div>
         <div className="hidden md:block">
-          <img src="https://example.com/well-dressed-man.png" alt="Well-dressed man" className="w-64 h-64 object-cover" />
+          <img src="https://i.ibb.co/xDqt71x/1.png" alt="Well-dressed man" className="w-64 h-64 object-cover" />
         </div>
       </div>
     </div>
