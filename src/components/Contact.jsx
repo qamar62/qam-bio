@@ -6,7 +6,7 @@ const Contact = () => {
       <div className="max-w-[600px] mx-auto p-4 flex flex-col justify-center w-full h-full">
         <div className="pb-8">
           <p className="text-4xl font-bold inline border-b-4 border-[#ff5e62] text-gray-800 dark:text-white">Contact</p>
-          <p className="py-4 text-gray-600 dark:text-gray-400">Submit the form below or shoot me an email - myemail@gmail.com</p>
+          <p className="py-4 text-gray-600 dark:text-gray-400">Submit the form below or shoot me an email - qam600@gmail.com</p>
         </div>
         <form method="POST" action="https://getform.io/f/bejjreoa" className="flex flex-col">
           <input 
