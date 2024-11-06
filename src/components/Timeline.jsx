@@ -29,31 +29,31 @@ const Timeline = () => {
           <div>
             <p className="text-2xl font-bold mb-4 text-gray-800 dark:text-white">Experience</p>
             <TimelineItem 
-              year="2021"
-              title="Senior Web Developer at Tech Corp"
-              duration="2 years"
+              year="2017"
+              title="Senior Web Developer and Digital Marketing Expert at Arabian Nights Tours"
+              duration="7 years"
               details="Led a team of developers in creating responsive web applications using React and Node.js. Implemented CI/CD pipelines and improved overall code quality."
             />
             <TimelineItem 
-              year="2019"
-              title="Full Stack Developer at StartUp Inc"
-              duration="2 years"
-              details="Developed and maintained multiple web applications using the MERN stack. Collaborated with UX designers to implement user-friendly interfaces."
+              year="2012-2016"
+              title="IT incharge"
+              duration="4 years"
+              details="Managing Multi Oraganization IT solutions and web development"
             />
           </div>
           <div>
             <p className="text-2xl font-bold mb-4 text-gray-800 dark:text-white">Education</p>
             <TimelineItem 
-              year="2019"
-              title="Master's in Computer Science"
+              year="2013"
+              title="Bechalor in Business"
               duration="2 years"
-              details="University of Technology - Specialized in Web Technologies and Cloud Computing"
+              details="Virtual University"
             />
             <TimelineItem 
-              year="2017"
-              title="Bachelor's in Software Engineering"
+              year="2008"
+              title="ICS"
               duration="4 years"
-              details="State University - Graduated with honors, participated in multiple hackathons"
+              details="Government College"
             />
           </div>
         </div>
