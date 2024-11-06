@@ -42,7 +42,7 @@ const Projects = () => {
                 <h3 className="text-lg font-semibold text-gray-800 dark:text-white text-center">{project.title}</h3>
                 <p className="text-sm text-gray-600 dark:text-gray-400 text-center mt-2">{project.description}</p>
                 <div className="flex justify-center mt-4 space-x-2">
-                  <a href="{project.link}" className="px-4 py-2 bg-gradient-to-r from-[#ff9966] to-[#ff5e62] text-white rounded-full text-sm font-medium hover:from-[#ff8a5b] hover:to-[#ff4b4b] transition-all duration-300">Demo</a>
+                  <a href={project.link} className="px-4 py-2 bg-gradient-to-r from-[#ff9966] to-[#ff5e62] text-white rounded-full text-sm font-medium hover:from-[#ff8a5b] hover:to-[#ff4b4b] transition-all duration-300">Demo</a>
                   <a href="#" className="px-4 py-2 bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-white rounded-full text-sm font-medium hover:bg-gray-300 dark:hover:bg-gray-600 transition-all duration-300">Code</a>
                 </div>
               </div>
