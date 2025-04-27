@@ -4,27 +4,45 @@ const Projects = () => {
   const projects = [
     {
       title: 'Travel and Tour Booking App ( WEB )',
-      description: 'Travel System with payment gatway integration, Backend CRM ',
-      image: 'https://via.placeholder.com/400x200',
+      description: 'Travel System with payment gateway integration, Backend CRM',
+      image: 'https://images.unsplash.com/photo-1465101046530-73398c7f28ca?auto=format&fit=crop&w=400&q=80',
       link: 'https://www.arabianknightstours.com',
     },
     {
-      title: 'Car Rental System ',
+      title: 'Car Rental System',
       description: 'Car rental booking system with Backend',
-      image: 'https://via.placeholder.com/400x200',
+      image: 'https://images.unsplash.com/photo-1461749280684-dccba630e2f6?auto=format&fit=crop&w=400&q=80',
       link: 'https://www.justdrivecar.me',
     },
     {
       title: 'E Commerce Website',
       description: 'React JS Application',
-      image: 'https://via.placeholder.com/400x200',
+      image: 'https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&w=400&q=80',
       link: 'https://www.camsfix.com',
     },
     {
-      title: 'DashBoard Using Djnago',
-      description: 'Dashboard with react and Django ',
-      image: 'https://via.placeholder.com/400x200',
+      title: 'DashBoard Using Django',
+      description: 'Dashboard with React and Django',
+      image: 'https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=400&q=80',
       link: '',
+    },
+    {
+      title: 'B2B Travel Portal',
+      description: 'B2B Travel Portal with agent and admin dashboards (frontend & backend).',
+      image: 'https://images.unsplash.com/photo-1465101046530-73398c7f28ca?auto=format&fit=crop&w=400&q=80',
+      link: 'https://b2b.qamdm.xyz',
+    },
+    {
+      title: 'Laptop Ecommerce Store',
+      description: 'Laptop ecommerce store with frontend and backend.',
+      image: 'https://images.unsplash.com/photo-1517336714731-489689fd1ca8?auto=format&fit=crop&w=400&q=80',
+      link: 'https://laptop.qamdm.xyz',
+    },
+    {
+      title: 'Single Activity Travel and Tourism Webapp',
+      description: 'Travel and tourism webapp for single activity booking.',
+      image: 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=400&q=80',
+      link: 'https://gtravel-six.vercel.app/',
     },
   ]
 
