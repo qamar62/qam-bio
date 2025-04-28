@@ -89,7 +89,8 @@ const BioCard = ({
         <h1 className="text-2xl font-bold text-gray-800 mb-1 text-center">{name}</h1>
         <h2 className="text-lg font-medium text-blue-600 mb-2 text-center">{title}</h2>
         <p className="text-gray-600 text-center mb-4">{bio}</p>
-        <div className="flex flex-row gap-4 mb-4">
+        <div className="flex flex-row gap-3 mb-4 justify-center items-center">
+          {/* Social icons */}
           {Object.entries(socials).map(([key, url]) =>
             url ? (
               <a
@@ -97,12 +98,37 @@ const BioCard = ({
                 href={url}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="rounded-full bg-gray-50 p-2 shadow hover:bg-blue-50 transition-colors"
+                className="rounded-full bg-blue-50 p-3 shadow hover:bg-blue-100 transition-colors flex items-center justify-center"
                 aria-label={key}
+                title={key.charAt(0).toUpperCase() + key.slice(1)}
               >
                 {icons[key]}
               </a>
             ) : null
+          )}
+          {/* Call icon */}
+          {phone && (
+            <a
+              href={`tel:${phone}`}
+              className="rounded-full bg-blue-50 p-3 shadow hover:bg-blue-100 transition-colors flex items-center justify-center"
+              aria-label="Call"
+              title="Call"
+            >
+              {/* Enhanced Phone icon */}
+              <svg width="22" height="22" fill="none" viewBox="0 0 24 24"><rect width="22" height="22" rx="11" fill="#2563eb"/><path d="M6.62 10.79a15.053 15.053 0 0 0 6.59 6.59l2.2-2.2a1 1 0 0 1 1-.24 11.36 11.36 0 0 0 3.58.57 1 1 0 0 1 1 1V20a1 1 0 0 1-1 1A17 17 0 0 1 3 4a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1c0 1.21.2 2.39.57 3.58a1 1 0 0 1-.24 1l-2.2 2.21Z" stroke="#fff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg>
+            </a>
+          )}
+          {/* Email icon */}
+          {email && (
+            <a
+              href={`mailto:${email}`}
+              className="rounded-full bg-blue-50 p-3 shadow hover:bg-blue-100 transition-colors flex items-center justify-center"
+              aria-label="Email"
+              title="Email"
+            >
+              {/* Enhanced Email icon */}
+              <svg width="22" height="22" fill="none" viewBox="0 0 24 24"><rect width="22" height="22" rx="11" fill="#2563eb"/><rect x="5" y="7" width="12" height="10" rx="3" stroke="#fff" strokeWidth="2"/><path d="m5 9 7 5 7-5" stroke="#fff" strokeWidth="2"/></svg>
+            </a>
           )}
         </div>
         <div className="mb-4">
@@ -110,6 +136,7 @@ const BioCard = ({
   <QRCode value="https://qamdm.xyz/qam-io" size={96} bgColor="#fff" fgColor="#2563eb" />
 </div>
         </div>
+
         <button
           onClick={downloadVCard}
           className="w-full flex items-center justify-center gap-2 py-3 px-6 bg-yellow-400 hover:bg-yellow-500 text-gray-900 font-semibold rounded-xl shadow transition-all duration-200 mb-2"
