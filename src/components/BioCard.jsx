@@ -19,9 +19,9 @@ const BioCard = ({
   title,
   bio,
   socials = {},
-  phone,
+  phone = "+971529733130",
   email,
-  website,
+  website = "http://qamdm.xyz",
   cardUrl = window.location.href,
 }) => {
   const vCardRef = useRef(null);
@@ -95,7 +95,7 @@ const BioCard = ({
             url ? (
               <a
                 key={key}
-                href={url}
+                href={"https://qamdm.xyz/"}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="rounded-full bg-blue-50 p-3 shadow hover:bg-blue-100 transition-colors flex items-center justify-center"
@@ -109,7 +109,7 @@ const BioCard = ({
           {/* Call icon */}
           {phone && (
             <a
-              href={`tel:${phone}`}
+              href={`tel:${"+971529733130"}`}
               className="rounded-full bg-blue-50 p-3 shadow hover:bg-blue-100 transition-colors flex items-center justify-center"
               aria-label="Call"
               title="Call"
