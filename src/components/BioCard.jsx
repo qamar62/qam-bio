@@ -26,8 +26,17 @@ const BioCard = ({
 }) => {
   const vCardRef = useRef(null);
 
-  // Generate vCard string
-  const vCardData = `BEGIN:VCARD\nVERSION:3.0\nFN:${name}\nTITLE:${title}\nTEL;TYPE=CELL:${phone || ""}\nEMAIL:${email || ""}\nURL:${website || cardUrl}\nEND:VCARD`;
+  // Generate vCard string (improved for compatibility)
+  const vCardData = [
+    "BEGIN:VCARD",
+    "VERSION:3.0",
+    `FN:${name}`,
+    `EMAIL;TYPE=INTERNET:${email || ""}`,
+    `TITLE:${title}`,
+    `TEL;TYPE=CELL,VOICE,WORK:"+971529733130"`,
+    `URL;TYPE=WORK:${website || "https://qamdm.xyz"}`,
+    "END:VCARD"
+  ].join("\n");
 
   // Download vCard
   const downloadVCard = () => {
