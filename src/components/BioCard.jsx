@@ -5,7 +5,19 @@ const BioCard = ({
   avatar = "https://avatars.githubusercontent.com/u/17507675?v=4",
   name = "Qamar Ibrahim",
   title = "Python Django Developer",
-  bio = "Passionate developer with expertise in Python, Django, and modern web technologies. Let's connect and collaborate!",
+  bio = {
+    tagline: "🚀 Full-Stack Developer & DevOps Expert",
+    highlights: [
+      "🐍 Python & Django Specialist",
+      "🤖 AI Integration & Automation",
+      "☁️ Cloud Computing & DevOps",
+      "⚛️ React & Modern Frontend",
+      "🐳 Docker & Containerization",
+      "📊 Digital Marketing Solutions"
+    ],
+    experience: "5+ Years Experience",
+    mission: "💡 Delivering high-impact digital solutions"
+  },
   socials = {
     linkedin: "https://linkedin.com/in/iamqam",
     github: "https://github.com/qamar62",
@@ -23,6 +35,7 @@ const BioCard = ({
   const [isHovering, setIsHovering] = useState(null);
 
   // Generate vCard string using ONLY the provided props
+  const bioText = typeof bio === 'string' ? bio : `${bio.tagline}\n${bio.highlights?.join('\n') || ''}\n${bio.mission || ''}`;
   const vCardData = [
     "BEGIN:VCARD",
     "VERSION:3.0",
@@ -31,7 +44,7 @@ const BioCard = ({
     `TITLE:${title}`,
     `TEL;TYPE=CELL,VOICE,WORK:+971529733130`,
     `URL;TYPE=WORK:https://qamdm.xyz`,
-    `NOTE:${bio}`,
+    `NOTE:${bioText}`,
     "END:VCARD"
   ].join("\n");
 
@@ -130,48 +143,91 @@ const BioCard = ({
   };
 
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center bg-gradient-to-br from-blue-50 via-white to-indigo-50 px-4 py-8">
-      <div className="w-full max-w-sm bg-white rounded-3xl shadow-2xl overflow-hidden animate-fade-in">
-        {/* Top color band */}
-        <div className="h-8 bg-gradient-to-r from-blue-500 to-indigo-600"></div>
+    <div className="min-h-screen flex flex-col items-center justify-center bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 px-4 py-8 relative overflow-hidden">
+      {/* Animated background elements */}
+      <div className="absolute inset-0 overflow-hidden">
+        <div className="absolute -top-40 -right-40 w-80 h-80 bg-purple-500 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-blob"></div>
+        <div className="absolute -bottom-40 -left-40 w-80 h-80 bg-yellow-400 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-blob animation-delay-2000"></div>
+        <div className="absolute top-40 left-40 w-80 h-80 bg-pink-500 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-blob animation-delay-4000"></div>
+      </div>
+      
+      <div className="relative w-full max-w-sm bg-white/10 backdrop-blur-lg rounded-3xl shadow-2xl border border-white/20 overflow-hidden animate-fade-in">
+        {/* Top gradient band */}
+        <div className="h-2 bg-gradient-to-r from-yellow-400 via-pink-500 to-purple-600"></div>
         
-        <div className="p-6 pb-4 flex flex-col items-center">
+        <div className="p-8 pb-6 flex flex-col items-center">
           {/* Avatar */}
-          <div className="relative -mt-12 mb-4">
-            <div className="absolute inset-0 rounded-full bg-gradient-to-r from-blue-400 to-indigo-500 blur-sm transform scale-110"></div>
-            <img
-              src={avatar}
-              alt={name}
-              className="relative w-24 h-24 rounded-full border-4 border-white shadow-lg object-cover"
-            />
+          <div className="relative -mt-16 mb-6">
+            <div className="absolute inset-0 rounded-full bg-gradient-to-r from-yellow-400 via-pink-500 to-purple-600 blur-md transform scale-110 animate-pulse"></div>
+            <div className="relative">
+              <img
+                src={avatar}
+                alt={name}
+                className="relative w-32 h-32 rounded-full border-4 border-white/30 shadow-2xl object-cover backdrop-blur-sm"
+              />
+              <div className="absolute inset-0 rounded-full bg-gradient-to-t from-black/20 to-transparent"></div>
+            </div>
           </div>
           
           {/* Name, title, and bio */}
-          <h1 className="text-2xl font-bold text-gray-800 mb-1 text-center">{name}</h1>
-          <h2 className="text-lg font-medium text-blue-600 mb-3 text-center">{title}</h2>
-          <div className="w-16 h-1 bg-gradient-to-r from-blue-300 to-indigo-400 rounded-full mb-4"></div>
-          <p className="text-gray-600 text-center text-sm leading-relaxed mb-6 max-w-xs">{bio}</p>
+          <h1 className="text-3xl font-bold text-white mb-2 text-center tracking-tight">{name}</h1>
+          <h2 className="text-lg font-medium text-yellow-400 mb-4 text-center">{title}</h2>
+          <div className="w-20 h-1 bg-gradient-to-r from-yellow-400 via-pink-500 to-purple-600 rounded-full mb-6"></div>
+          
+          {/* Enhanced Bio Section */}
+          <div className="mb-8 w-full max-w-xs">
+            {typeof bio === 'object' ? (
+              <>
+                {/* Tagline */}
+                <div className="text-center mb-4">
+                  <p className="text-white font-semibold text-base mb-2">{bio.tagline}</p>
+                  <div className="flex items-center justify-center gap-2 mb-3">
+                    <div className="h-px bg-gradient-to-r from-transparent via-yellow-400 to-transparent flex-1"></div>
+                    <span className="text-yellow-400 text-xs font-medium px-2">{bio.experience}</span>
+                    <div className="h-px bg-gradient-to-r from-transparent via-yellow-400 to-transparent flex-1"></div>
+                  </div>
+                </div>
+                
+                {/* Highlights */}
+                <div className="grid grid-cols-1 gap-2 mb-4">
+                  {bio.highlights?.map((highlight, index) => (
+                    <div key={index} className="flex items-center text-white/90 text-sm">
+                      <div className="w-2 h-2 bg-gradient-to-r from-yellow-400 to-pink-500 rounded-full mr-3 flex-shrink-0"></div>
+                      <span className="leading-tight">{highlight}</span>
+                    </div>
+                  ))}
+                </div>
+                
+                {/* Mission */}
+                <div className="text-center">
+                  <p className="text-white/80 text-sm italic">{bio.mission}</p>
+                </div>
+              </>
+            ) : (
+              <p className="text-white/80 text-center text-sm leading-relaxed">{bio}</p>
+            )}
+          </div>
           
           {/* Social icons - now strictly using the socials prop */}
-          <div className="flex flex-wrap gap-4 mb-6 justify-center items-center">
+          <div className="flex flex-wrap gap-3 mb-8 justify-center items-center">
             {Object.entries(socials).map(([key, url]) => (
               <a
                 key={key}
                 href={url}
                 target="_blank"
                 rel="noopener noreferrer"
-                className={`rounded-full p-3 shadow-md transition-all duration-300 ${isHovering === key ? 'scale-110' : ''}`}
+                className={`rounded-full p-3 backdrop-blur-sm border border-white/20 shadow-lg transition-all duration-300 hover:scale-110 hover:shadow-xl ${isHovering === key ? 'scale-110 shadow-xl' : ''}`}
                 style={{
                   backgroundColor: isHovering === key ? 
-                    (key === 'linkedin' ? '#E8F4FC' : 
-                     key === 'github' ? '#F0F0F0' : 
-                     key === 'instagram' ? '#FDF3F8' : 
-                     key === 'website' ? '#E8F0FE' : '#F5F5F5') : '#F5F5F5',
+                    (key === 'linkedin' ? 'rgba(10, 102, 194, 0.2)' : 
+                     key === 'github' ? 'rgba(24, 23, 23, 0.2)' : 
+                     key === 'instagram' ? 'rgba(225, 48, 108, 0.2)' : 
+                     key === 'website' ? 'rgba(66, 133, 244, 0.2)' : 'rgba(255, 255, 255, 0.1)') : 'rgba(255, 255, 255, 0.1)',
                   color: isHovering === key ? 
                     (key === 'linkedin' ? '#0A66C2' : 
-                     key === 'github' ? '#181717' : 
+                     key === 'github' ? '#ffffff' : 
                      key === 'instagram' ? '#E1306C' : 
-                     key === 'website' ? '#4285F4' : '#333') : '#333'
+                     key === 'website' ? '#4285F4' : '#ffffff') : '#ffffff'
                 }}
                 aria-label={key}
                 title={key.charAt(0).toUpperCase() + key.slice(1)}
@@ -185,10 +241,10 @@ const BioCard = ({
             {/* Contact buttons - using the exact phone and email from props */}
             <a
               href={`tel:${phone}`}
-              className={`rounded-full p-3 shadow-md transition-all duration-300 ${isHovering === 'phone' ? 'scale-110' : ''}`}
+              className={`rounded-full p-3 backdrop-blur-sm border border-white/20 shadow-lg transition-all duration-300 hover:scale-110 hover:shadow-xl ${isHovering === 'phone' ? 'scale-110 shadow-xl' : ''}`}
               style={{
-                backgroundColor: isHovering === 'phone' ? '#E3F2FD' : '#F5F5F5',
-                color: isHovering === 'phone' ? '#34B7F1' : '#333'
+                backgroundColor: isHovering === 'phone' ? 'rgba(52, 183, 241, 0.2)' : 'rgba(255, 255, 255, 0.1)',
+                color: isHovering === 'phone' ? '#34B7F1' : '#ffffff'
               }}
               aria-label="Call"
               title="Call"
@@ -200,10 +256,10 @@ const BioCard = ({
             
             <a
               href={`mailto:${email}`}
-              className={`rounded-full p-3 shadow-md transition-all duration-300 ${isHovering === 'email' ? 'scale-110' : ''}`}
+              className={`rounded-full p-3 backdrop-blur-sm border border-white/20 shadow-lg transition-all duration-300 hover:scale-110 hover:shadow-xl ${isHovering === 'email' ? 'scale-110 shadow-xl' : ''}`}
               style={{
-                backgroundColor: isHovering === 'email' ? '#FDECEC' : '#F5F5F5',
-                color: isHovering === 'email' ? '#EA4335' : '#333'
+                backgroundColor: isHovering === 'email' ? 'rgba(234, 67, 53, 0.2)' : 'rgba(255, 255, 255, 0.1)',
+                color: isHovering === 'email' ? '#EA4335' : '#ffffff'
               }}
               aria-label="Email"
               title="Email"
@@ -215,24 +271,24 @@ const BioCard = ({
           </div>
           
           {/* QR Code */}
-          <div className="mb-6 p-2 bg-white rounded-2xl shadow-md">
-            <div className="p-1 bg-gradient-to-r from-blue-100 to-indigo-100 rounded-xl">
+          <div className="mb-8 p-3 bg-white/10 backdrop-blur-sm rounded-2xl shadow-lg border border-white/20">
+            <div className="p-2 bg-white rounded-xl">
               <QRCode 
                 value={qrCodeUrl} 
-                size={140} 
+                size={120} 
                 bgColor="#ffffff" 
-                fgColor="#3b82f6" 
+                fgColor="#1f2937" 
                 level="H"
                 className="rounded-lg"
               />
             </div>
-            <p className="text-xs text-center mt-2 text-gray-500">Scan to connect</p>
+            <p className="text-xs text-center mt-3 text-white/70">Scan to connect</p>
           </div>
           
           {/* Save contact button */}
           <button
             onClick={downloadVCard}
-            className="w-full flex items-center justify-center gap-2 py-3 px-6 bg-gradient-to-r from-blue-500 to-indigo-600 hover:from-blue-600 hover:to-indigo-700 text-white font-semibold rounded-xl shadow-lg transition-all duration-300 transform hover:scale-[1.02] hover:shadow-xl"
+            className="w-full flex items-center justify-center gap-2 py-4 px-6 bg-gradient-to-r from-yellow-400 via-pink-500 to-purple-600 hover:from-yellow-500 hover:via-pink-600 hover:to-purple-700 text-white font-bold rounded-xl shadow-lg transition-all duration-300 transform hover:scale-[1.02] hover:shadow-2xl backdrop-blur-sm"
           >
             <span>Save Contact</span>
             <svg width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
@@ -242,8 +298,8 @@ const BioCard = ({
         </div>
         
         {/* Footer */}
-        <div className="bg-gray-50 px-6 py-4">
-          <p className="text-xs text-gray-500 text-center">
+        <div className="bg-black/20 backdrop-blur-sm px-6 py-4 border-t border-white/10">
+          <p className="text-xs text-white/60 text-center">
             © {new Date().getFullYear()} {name}. All Rights Reserved.
           </p>
         </div>
@@ -252,7 +308,7 @@ const BioCard = ({
       {/* Share button */}
       <button
         onClick={shareCard}
-        className="fixed bottom-6 right-6 bg-gradient-to-r from-blue-500 to-indigo-600 hover:from-blue-600 hover:to-indigo-700 text-white rounded-full shadow-lg p-4 transition-all duration-300 z-50 animate-float"
+        className="fixed bottom-6 right-6 bg-gradient-to-r from-yellow-400 via-pink-500 to-purple-600 hover:from-yellow-500 hover:via-pink-600 hover:to-purple-700 text-white rounded-full shadow-2xl p-4 transition-all duration-300 z-50 hover:scale-110 backdrop-blur-sm border border-white/20"
         aria-label="Share Card"
       >
         <svg width="24" height="24" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
@@ -262,7 +318,7 @@ const BioCard = ({
       
       {/* Toast notification */}
       {showToast && (
-        <div className="fixed bottom-24 left-1/2 transform -translate-x-1/2 bg-gray-800 text-white px-6 py-3 rounded-lg shadow-xl z-50 animate-fade-in flex items-center gap-2">
+        <div className="fixed bottom-24 left-1/2 transform -translate-x-1/2 bg-black/80 backdrop-blur-sm text-white px-6 py-3 rounded-lg shadow-2xl z-50 animate-fade-in flex items-center gap-2 border border-white/20">
           <svg width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
             <path strokeLinecap="round" strokeLinejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
           </svg>
