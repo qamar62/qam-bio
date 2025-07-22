@@ -21,14 +21,14 @@ const BioCard = ({
   socials = {
     linkedin: "https://linkedin.com/in/iamqam",
     github: "https://github.com/qamar62",
-    website: "https://qamdm.xyz",
+    website: "https://qaam.work",
     instagram: "https://instagram.com/qam600"
   },
   phone = "+971529733130",
   email = "qam600@gmail.com",
-  website = "https://qamdm.xyz",
+  website = "https://qaam.work",
   cardUrl = window.location.href,
-  qrCodeUrl = "https://qamdm.xyz/qam-io",
+  qrCodeUrl = "https://qaam.work/qam-bio",
 }) => {
   const vCardRef = useRef(null);
   const [showToast, setShowToast] = useState(false);
@@ -43,7 +43,7 @@ const BioCard = ({
     `EMAIL;TYPE=INTERNET:qam600@gmail.com`,
     `TITLE:${title}`,
     `TEL;TYPE=CELL,VOICE,WORK:+971529733130`,
-    `URL;TYPE=WORK:https://qamdm.xyz`,
+    `URL;TYPE=WORK:https://qaam.work`,
     `NOTE:${bioText}`,
     "END:VCARD"
   ].join("\n");
