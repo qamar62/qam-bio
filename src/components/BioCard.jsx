@@ -143,72 +143,92 @@ const BioCard = ({
   };
 
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 px-4 py-8 relative overflow-hidden">
-      {/* Animated background elements */}
-      <div className="absolute inset-0 overflow-hidden">
-        <div className="absolute -top-40 -right-40 w-80 h-80 bg-purple-500 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-blob"></div>
-        <div className="absolute -bottom-40 -left-40 w-80 h-80 bg-yellow-400 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-blob animation-delay-2000"></div>
-        <div className="absolute top-40 left-40 w-80 h-80 bg-pink-500 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-blob animation-delay-4000"></div>
-      </div>
+    <div className="w-full max-w-md mx-auto relative">
+      {/* Floating Particles Background */}
+      {[...Array(8)].map((_, i) => (
+        <span
+          key={i}
+          className="absolute w-1 h-1 rounded-full pointer-events-none"
+          style={{
+            background: 'var(--gold)',
+            left: `${Math.random() * 100}%`,
+            top: `${Math.random() * 100}%`,
+            '--float-x': `${(Math.random() - 0.5) * 40}px`,
+            '--float-y': `${(Math.random() - 0.5) * 40}px`,
+            animation: `floatParticle ${4 + Math.random() * 4}s ease-in-out infinite`,
+            animationDelay: `${Math.random() * 2}s`,
+            opacity: 0.4
+          }}
+        ></span>
+      ))}
       
-      <div className="relative w-full max-w-sm bg-white/10 backdrop-blur-lg rounded-3xl shadow-2xl border border-white/20 overflow-hidden animate-fade-in">
-        {/* Top gradient band */}
-        <div className="h-2 bg-gradient-to-r from-yellow-400 via-pink-500 to-purple-600"></div>
+      <div className="relative w-full overflow-hidden" style={{ 
+        background: 'rgba(17,24,32,0.98)',
+        backdropFilter: 'blur(30px)',
+        border: '1px solid var(--border)',
+        borderRadius: '24px',
+        boxShadow: '0 25px 50px -12px rgba(0,0,0,0.5), 0 0 0 1px rgba(245,197,24,0.1)'
+      }}>
+        {/* Top gold accent line */}
+        <div className="h-1" style={{ background: 'var(--gold)' }}></div>
         
-        <div className="p-8 pb-6 flex flex-col items-center">
+        <div className="p-6 sm:p-8 pb-6 flex flex-col items-center">
           {/* Avatar */}
-          <div className="relative -mt-16 mb-6">
-            <div className="absolute inset-0 rounded-full bg-gradient-to-r from-yellow-400 via-pink-500 to-purple-600 blur-md transform scale-110 animate-pulse"></div>
+          <div className="relative mb-8">
+            <div className="absolute inset-0 rounded-full opacity-50" style={{ background: 'var(--gold)', filter: 'blur(20px)', transform: 'scale(1.1)' }}></div>
             <div className="relative">
               <img
                 src={avatar}
                 alt={name}
-                className="relative w-32 h-32 rounded-full border-4 border-white/30 shadow-2xl object-cover backdrop-blur-sm"
+                className="relative w-28 h-28 sm:w-32 sm:h-32 rounded-full object-cover"
+                style={{ border: '3px solid var(--gold)', boxShadow: '0 0 30px rgba(245,197,24,0.3)' }}
               />
-              <div className="absolute inset-0 rounded-full bg-gradient-to-t from-black/20 to-transparent"></div>
             </div>
           </div>
           
-          {/* Name, title, and bio */}
-          <h1 className="text-3xl font-bold text-white mb-2 text-center tracking-tight">{name}</h1>
-          <h2 className="text-lg font-medium text-yellow-400 mb-4 text-center">{title}</h2>
-          <div className="w-20 h-1 bg-gradient-to-r from-yellow-400 via-pink-500 to-purple-600 rounded-full mb-6"></div>
+          {/* Name & Title */}
+          <h1 className="text-3xl sm:text-4xl font-bold mb-2 text-center tracking-tight" style={{ fontFamily: "'Syne', sans-serif", color: 'var(--text)' }}>{name}</h1>
+          <h2 className="text-base sm:text-lg mb-6 text-center" style={{ color: 'var(--gold)', fontFamily: "'DM Mono', monospace" }}>{title}</h2>
+          <div className="h-px w-24 mb-8" style={{ background: 'var(--gold)' }}></div>
           
-          {/* Enhanced Bio Section */}
-          <div className="mb-8 w-full max-w-xs">
+          {/* Bio Section */}
+          <div className="mb-8 w-full">
             {typeof bio === 'object' ? (
               <>
                 {/* Tagline */}
-                <div className="text-center mb-4">
-                  <p className="text-white font-semibold text-base mb-2">{bio.tagline}</p>
-                  <div className="flex items-center justify-center gap-2 mb-3">
-                    <div className="h-px bg-gradient-to-r from-transparent via-yellow-400 to-transparent flex-1"></div>
-                    <span className="text-yellow-400 text-xs font-medium px-2">{bio.experience}</span>
-                    <div className="h-px bg-gradient-to-r from-transparent via-yellow-400 to-transparent flex-1"></div>
+                <div className="text-center mb-6">
+                  <p className="text-lg font-semibold mb-3" style={{ color: 'var(--text)', fontFamily: "'Syne', sans-serif" }}>{bio.tagline}</p>
+                  <div className="flex items-center justify-center gap-3 mb-4">
+                    <div className="h-px flex-1" style={{ background: 'var(--border)' }}></div>
+                    <span className="text-xs tracking-widest uppercase px-3 py-1" style={{ color: 'var(--gold)', fontFamily: "'DM Mono', monospace", border: '1px solid var(--border)' }}>{bio.experience}</span>
+                    <div className="h-px flex-1" style={{ background: 'var(--border)' }}></div>
                   </div>
                 </div>
                 
                 {/* Highlights */}
-                <div className="grid grid-cols-1 gap-2 mb-4">
+                <div className="grid grid-cols-1 gap-3 mb-6">
                   {bio.highlights?.map((highlight, index) => (
-                    <div key={index} className="flex items-center text-white/90 text-sm">
-                      <div className="w-2 h-2 bg-gradient-to-r from-yellow-400 to-pink-500 rounded-full mr-3 flex-shrink-0"></div>
-                      <span className="leading-tight">{highlight}</span>
+                    <div key={index} className="flex items-start text-sm sm:text-base">
+                      <div className="w-1.5 h-1.5 rounded-full mt-2 mr-3 flex-shrink-0" style={{ background: 'var(--gold)' }}></div>
+                      <span className="leading-relaxed" style={{ color: 'var(--text-dim)', fontFamily: "'DM Mono', monospace" }}>{highlight}</span>
                     </div>
                   ))}
                 </div>
                 
                 {/* Mission */}
                 <div className="text-center">
-                  <p className="text-white/80 text-sm italic">{bio.mission}</p>
+                  <p className="text-sm italic" style={{ color: 'var(--text-dim)' }}>{bio.mission}</p>
                 </div>
               </>
             ) : (
-              <p className="text-white/80 text-center text-sm leading-relaxed">{bio}</p>
+              <p className="text-center text-sm leading-relaxed" style={{ color: 'var(--text-dim)' }}>{bio}</p>
             )}
           </div>
           
-          {/* Social icons - now strictly using the socials prop */}
+          {/* Divider */}
+          <div className="h-px w-full mb-8" style={{ background: 'linear-gradient(90deg, transparent, var(--border), transparent)' }}></div>
+          
+          {/* Social Links */}
           <div className="flex flex-wrap gap-3 mb-8 justify-center items-center">
             {Object.entries(socials).map(([key, url]) => (
               <a
@@ -216,18 +236,12 @@ const BioCard = ({
                 href={url}
                 target="_blank"
                 rel="noopener noreferrer"
-                className={`rounded-full p-3 backdrop-blur-sm border border-white/20 shadow-lg transition-all duration-300 hover:scale-110 hover:shadow-xl ${isHovering === key ? 'scale-110 shadow-xl' : ''}`}
+                className="w-11 h-11 sm:w-12 sm:h-12 flex items-center justify-center transition-all duration-300 hover:scale-110 relative group"
                 style={{
-                  backgroundColor: isHovering === key ? 
-                    (key === 'linkedin' ? 'rgba(10, 102, 194, 0.2)' : 
-                     key === 'github' ? 'rgba(24, 23, 23, 0.2)' : 
-                     key === 'instagram' ? 'rgba(225, 48, 108, 0.2)' : 
-                     key === 'website' ? 'rgba(66, 133, 244, 0.2)' : 'rgba(255, 255, 255, 0.1)') : 'rgba(255, 255, 255, 0.1)',
-                  color: isHovering === key ? 
-                    (key === 'linkedin' ? '#0A66C2' : 
-                     key === 'github' ? '#ffffff' : 
-                     key === 'instagram' ? '#E1306C' : 
-                     key === 'website' ? '#4285F4' : '#ffffff') : '#ffffff'
+                  border: '1px solid var(--border)',
+                  borderRadius: '10px',
+                  background: isHovering === key ? 'var(--gold)' : 'transparent',
+                  color: isHovering === key ? 'var(--deep)' : 'var(--text)'
                 }}
                 aria-label={key}
                 title={key.charAt(0).toUpperCase() + key.slice(1)}
@@ -238,13 +252,14 @@ const BioCard = ({
               </a>
             ))}
             
-            {/* Contact buttons - using the exact phone and email from props */}
             <a
               href={`tel:${phone}`}
-              className={`rounded-full p-3 backdrop-blur-sm border border-white/20 shadow-lg transition-all duration-300 hover:scale-110 hover:shadow-xl ${isHovering === 'phone' ? 'scale-110 shadow-xl' : ''}`}
+              className="w-11 h-11 sm:w-12 sm:h-12 flex items-center justify-center transition-all duration-300 hover:scale-110"
               style={{
-                backgroundColor: isHovering === 'phone' ? 'rgba(52, 183, 241, 0.2)' : 'rgba(255, 255, 255, 0.1)',
-                color: isHovering === 'phone' ? '#34B7F1' : '#ffffff'
+                border: '1px solid var(--border)',
+                borderRadius: '10px',
+                background: isHovering === 'phone' ? 'var(--gold)' : 'transparent',
+                color: isHovering === 'phone' ? 'var(--deep)' : 'var(--text)'
               }}
               aria-label="Call"
               title="Call"
@@ -256,10 +271,12 @@ const BioCard = ({
             
             <a
               href={`mailto:${email}`}
-              className={`rounded-full p-3 backdrop-blur-sm border border-white/20 shadow-lg transition-all duration-300 hover:scale-110 hover:shadow-xl ${isHovering === 'email' ? 'scale-110 shadow-xl' : ''}`}
+              className="w-11 h-11 sm:w-12 sm:h-12 flex items-center justify-center transition-all duration-300 hover:scale-110"
               style={{
-                backgroundColor: isHovering === 'email' ? 'rgba(234, 67, 53, 0.2)' : 'rgba(255, 255, 255, 0.1)',
-                color: isHovering === 'email' ? '#EA4335' : '#ffffff'
+                border: '1px solid var(--border)',
+                borderRadius: '10px',
+                background: isHovering === 'email' ? 'var(--gold)' : 'transparent',
+                color: isHovering === 'email' ? 'var(--deep)' : 'var(--text)'
               }}
               aria-label="Email"
               title="Email"
@@ -271,58 +288,72 @@ const BioCard = ({
           </div>
           
           {/* QR Code */}
-          <div className="mb-8 p-3 bg-white/10 backdrop-blur-sm rounded-2xl shadow-lg border border-white/20">
-            <div className="p-2 bg-white rounded-xl">
+          <div className="mb-8 p-4 rounded-2xl" style={{ background: 'var(--surface-2)', border: '1px solid var(--border)' }}>
+            <div className="p-3 bg-white rounded-xl">
               <QRCode 
                 value={qrCodeUrl} 
-                size={120} 
+                size={110} 
                 bgColor="#ffffff" 
-                fgColor="#1f2937" 
+                fgColor="#0A0F14" 
                 level="H"
                 className="rounded-lg"
               />
             </div>
-            <p className="text-xs text-center mt-3 text-white/70">Scan to connect</p>
+            <p className="text-xs text-center mt-3" style={{ color: 'var(--text-dim)', fontFamily: "'DM Mono', monospace" }}>Scan to connect</p>
           </div>
           
-          {/* Save contact button */}
+          {/* Save Contact Button */}
           <button
             onClick={downloadVCard}
-            className="w-full flex items-center justify-center gap-2 py-4 px-6 bg-gradient-to-r from-yellow-400 via-pink-500 to-purple-600 hover:from-yellow-500 hover:via-pink-600 hover:to-purple-700 text-white font-bold rounded-xl shadow-lg transition-all duration-300 transform hover:scale-[1.02] hover:shadow-2xl backdrop-blur-sm"
+            className="w-full flex items-center justify-center gap-3 py-4 px-6 font-bold text-base tracking-wide transition-all duration-300 transform hover:scale-[1.02]"
+            style={{
+              background: 'var(--gold)',
+              color: 'var(--deep)',
+              borderRadius: '8px',
+              boxShadow: '0 4px 15px rgba(245,197,24,0.3)',
+              fontFamily: "'Syne', sans-serif"
+            }}
+            onMouseEnter={(e) => e.currentTarget.style.transform = 'scale(1.02) translateY(-2px)'}
+            onMouseLeave={(e) => e.currentTarget.style.transform = 'scale(1)'}
           >
-            <span>Save Contact</span>
-            <svg width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
+            <span>SAVE CONTACT</span>
+            <svg width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2.5">
               <path strokeLinecap="round" strokeLinejoin="round" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
             </svg>
           </button>
         </div>
         
         {/* Footer */}
-        <div className="bg-black/20 backdrop-blur-sm px-6 py-4 border-t border-white/10">
-          <p className="text-xs text-white/60 text-center">
-            © {new Date().getFullYear()} {name}. All Rights Reserved.
+        <div className="px-6 py-4" style={{ background: 'var(--surface-2)', borderTop: '1px solid var(--border)' }}>
+          <p className="text-xs text-center" style={{ color: 'var(--text-dim)', fontFamily: "'DM Mono', monospace" }}>
+            © {new Date().getFullYear()} {name} · All Rights Reserved
           </p>
         </div>
       </div>
       
-      {/* Share button */}
+      {/* Share Button */}
       <button
         onClick={shareCard}
-        className="fixed bottom-6 right-6 bg-gradient-to-r from-yellow-400 via-pink-500 to-purple-600 hover:from-yellow-500 hover:via-pink-600 hover:to-purple-700 text-white rounded-full shadow-2xl p-4 transition-all duration-300 z-50 hover:scale-110 backdrop-blur-sm border border-white/20"
+        className="fixed bottom-6 right-6 rounded-full shadow-2xl p-4 transition-all duration-300 z-50 hover:scale-110"
+        style={{
+          background: 'var(--gold)',
+          color: 'var(--deep)',
+          border: '1px solid var(--border)'
+        }}
         aria-label="Share Card"
       >
-        <svg width="24" height="24" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
+        <svg width="24" height="24" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2.5">
           <path strokeLinecap="round" strokeLinejoin="round" d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z" />
         </svg>
       </button>
       
-      {/* Toast notification */}
+      {/* Toast Notification */}
       {showToast && (
-        <div className="fixed bottom-24 left-1/2 transform -translate-x-1/2 bg-black/80 backdrop-blur-sm text-white px-6 py-3 rounded-lg shadow-2xl z-50 animate-fade-in flex items-center gap-2 border border-white/20">
+        <div className="fixed bottom-24 left-1/2 transform -translate-x-1/2 px-6 py-3 rounded-lg shadow-2xl z-50 flex items-center gap-2" style={{ background: 'rgba(17,24,32,0.95)', backdropFilter: 'blur(20px)', border: '1px solid var(--border)', color: 'var(--text)' }}>
           <svg width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
             <path strokeLinecap="round" strokeLinejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
           </svg>
-          <span>Link copied to clipboard!</span>
+          <span style={{ fontFamily: "'DM Mono', monospace" }}>Link copied to clipboard!</span>
         </div>
       )}
     </div>

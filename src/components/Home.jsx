@@ -1,12 +1,13 @@
 import React, { useRef, useState, useEffect } from 'react';
-import { FaHome, FaUser, FaProjectDiagram, FaEnvelope, FaGithub, FaLinkedin, FaTwitter, FaSun, FaMoon, FaBars, FaTimes } from 'react-icons/fa';
+import { FaSun, FaMoon, FaBars, FaTimes, FaGithub, FaLinkedin, FaTwitter } from 'react-icons/fa';
+import { useScrollReveal } from '../hooks/useScrollReveal';
 import Projects from './Projects';
 
 const sections = [
-  { id: 'home', icon: <FaHome size={24} />, label: 'Home' },
-  { id: 'about', icon: <FaUser size={24} />, label: 'About' },
-  { id: 'projects', icon: <FaProjectDiagram size={24} />, label: 'Projects' },
-  { id: 'contact', icon: <FaEnvelope size={24} />, label: 'Contact' },
+  { id: 'home', label: 'Home' },
+  { id: 'about', label: 'About' },
+  { id: 'projects', label: 'Projects' },
+  { id: 'contact', label: 'Contact' },
 ];
 
 function Home() {
@@ -17,16 +18,14 @@ function Home() {
     contact: useRef(null),
   };
   const [activeSection, setActiveSection] = useState('home');
-  const [darkMode, setDarkMode] = useState(false);
+  const [darkMode, setDarkMode] = useState(true);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [bioCardVisible, setBioCardVisible] = useState(false);
 
-  // Scroll to section
   const handleNavClick = (id) => {
     sectionRefs[id].current.scrollIntoView({ behavior: 'smooth', block: 'start' });
   };
 
-  // Highlight active section on scroll
   useEffect(() => {
     const handleScroll = () => {
       const offsets = Object.entries(sectionRefs).map(([id, ref]) => ({
@@ -42,7 +41,6 @@ function Home() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  // Toggle dark/light mode
   useEffect(() => {
     if (darkMode) {
       document.documentElement.classList.add('dark');
@@ -52,179 +50,457 @@ function Home() {
   }, [darkMode]);
 
   return (
-    <div className={`flex min-h-screen ${darkMode ? 'bg-[#11202A] dark' : 'bg-white'}`}>
+    <div className="flex min-h-screen" style={{ background: darkMode ? 'var(--deep)' : '#ffffff', color: darkMode ? 'var(--text)' : '#000000' }}>
       {/* Mobile menu button */}
       <button 
         onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-        className="fixed top-4 right-4 z-50 p-2 rounded-full bg-[#1A2D3A] text-white md:hidden"
+        className="fixed top-6 right-6 z-50 p-3 md:hidden"
+        style={{ background: 'var(--surface)', color: 'var(--gold)' }}
         aria-label="Toggle mobile menu"
       >
         {mobileMenuOpen ? <FaTimes size={24} /> : <FaBars size={24} />}
       </button>
-      
-      {/* Bio toggle button - all devices */}
-      <div
-        onClick={() => setBioCardVisible(!bioCardVisible)}
-        className="fixed left-4 top-1/2 -translate-y-1/2 z-50 cursor-pointer"
-        aria-label="Toggle bio card"
-      >
-        <div className="bg-gray-800 dark:bg-gray-900 text-white rounded-2xl shadow-2xl hover:shadow-3xl transition-all duration-300 hover:scale-105 flex items-center overflow-hidden">
-          <div className="bg-yellow-400 p-3 m-2 rounded-xl flex items-center justify-center">
-            <svg className="w-5 h-5 text-black" fill="currentColor" viewBox="0 0 20 20">
-              <path fillRule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clipRule="evenodd" />
-            </svg>
-          </div>
-          <div className="px-4 py-3 pr-6">
-            <span className="font-semibold text-sm md:text-base whitespace-nowrap">
-              {bioCardVisible ? 'Close Bio' : 'Show Bio'}
-            </span>
-          </div>
-        </div>
-      </div>
 
       {/* Sidebar - desktop */}
-      <div className="fixed left-0 top-0 h-full w-16 md:w-20 flex-col items-center py-8 px-2 bg-[#1A2D3A] z-30 shadow-lg hidden md:flex">
-        {/* Dark/Light Toggle */}
+      <div className="fixed left-0 top-0 h-full w-20 flex-col items-center justify-center py-12 z-30 hidden md:flex" style={{ background: 'var(--surface)' }}>
+        <div className="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none">
+          <div className="absolute w-1 h-20 left-1/2 -translate-x-1/2 opacity-30" style={{ background: 'linear-gradient(180deg, transparent, var(--gold), transparent)', animation: 'scanline 8s linear infinite' }}></div>
+        </div>
+        
         <button
           onClick={() => setDarkMode(!darkMode)}
-          className="mb-8 p-2 rounded-full bg-gray-700 hover:bg-yellow-400 hover:text-black text-gray-200 transition"
+          className="mb-12 w-3 h-3 rounded-full transition-all duration-300"
+          style={{ background: darkMode ? 'var(--gold)' : 'var(--text-dim)', boxShadow: darkMode ? '0 0 12px var(--gold)' : 'none' }}
           aria-label="Toggle dark mode"
-        >
-          {darkMode ? <FaSun size={22} /> : <FaMoon size={22} />}
-        </button>
-        {sections.map((section) => (
-          <button
-            key={section.id}
-            onClick={() => handleNavClick(section.id)}
-            className={`my-2 p-3 rounded-xl transition-colors duration-200 ${activeSection === section.id ? 'bg-yellow-400 text-black' : 'text-gray-300 hover:bg-gray-700'}`}
-            aria-label={section.label}
-          >
-            {section.icon}
-          </button>
-        ))}
-      </div>
-      
-      {/* Mobile menu - overlay */}
-      <div className={`fixed inset-0 bg-black bg-opacity-50 z-40 md:hidden ${mobileMenuOpen ? 'block' : 'hidden'}`} onClick={() => setMobileMenuOpen(false)}></div>
-      
-      {/* Mobile menu - content */}
-      <div className={`fixed bottom-0 left-0 right-0 bg-[#1A2D3A] z-40 transition-transform duration-300 transform md:hidden ${mobileMenuOpen ? 'translate-y-0' : 'translate-y-full'}`}>
-        <div className="flex flex-col items-center py-6 px-4">
-          <div className="flex justify-between w-full mb-4">
+        ></button>
+
+        <div className="flex flex-col items-center space-y-8">
+          {sections.map((section, idx) => (
             <button
-              onClick={() => setDarkMode(!darkMode)}
-              className="p-3 rounded-full bg-gray-700 hover:bg-yellow-400 hover:text-black text-gray-200 transition"
-              aria-label="Toggle dark mode"
+              key={section.id}
+              onClick={() => handleNavClick(section.id)}
+              className="relative group"
+              aria-label={section.label}
             >
-              {darkMode ? <FaSun size={22} /> : <FaMoon size={22} />}
+              <div className="w-1 transition-all duration-300" style={{ 
+                height: activeSection === section.id ? '32px' : '12px',
+                background: activeSection === section.id ? 'var(--gold)' : 'var(--text-dim)',
+                opacity: activeSection === section.id ? 1 : 0.4
+              }}></div>
+              <span className="absolute left-8 top-1/2 -translate-y-1/2 opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap text-xs tracking-wider" style={{ color: 'var(--gold)', fontFamily: "'DM Mono', monospace" }}>
+                {section.label}
+              </span>
             </button>
-            <button 
-              onClick={() => setMobileMenuOpen(false)}
-              className="p-3 rounded-full bg-gray-700 text-white"
-              aria-label="Close menu"
-            >
-              <FaTimes size={22} />
-            </button>
-          </div>
-          <div className="grid grid-cols-2 gap-4 w-full">
-            {sections.map((section) => (
-              <button
-                key={section.id}
-                onClick={() => {
-                  handleNavClick(section.id);
-                  setMobileMenuOpen(false);
-                }}
-                className={`p-4 rounded-xl flex flex-col items-center justify-center transition-colors duration-200 ${activeSection === section.id ? 'bg-yellow-400 text-black' : 'text-gray-300 bg-gray-700'}`}
-              >
-                {section.icon}
-                <span className="mt-2 text-sm">{section.label}</span>
-              </button>
-            ))}
-          </div>
+          ))}
         </div>
       </div>
 
-      {/* Bio Card - fullscreen overlay when toggled on all devices */}
-      <div className={`fixed ${bioCardVisible ? 'inset-0 bg-black bg-opacity-75 flex' : 'hidden'} flex-col items-center justify-center z-40 px-4`}>
-        <div className="bg-[#f7f7f7] dark:bg-[#233647] rounded-3xl shadow-xl flex flex-col items-center overflow-hidden p-0 border border-gray-200 dark:border-gray-700 max-h-[90vh] overflow-y-auto w-[90%] sm:w-[500px] md:w-[600px] lg:w-[700px] my-auto">
-          {/* Image area styled like OVRO */}
-          <div className="w-full h-90 bg-white flex items-center justify-center rounded-t-3xl overflow-hidden">
-            <img
-              src="/qam.jpg"
-              alt="Qamar Ibrahim"
-              className="object-cover w-full h-full"
-              style={{ objectPosition: 'center top' }}
-            />
-          </div>
-          {/* Info area */}
-          <div className="flex flex-col items-center px-8 pt-6 pb-4 w-full">
-            <h1 className="text-3xl md:text-4xl font-bold mb-1 text-gray-900 dark:text-white text-center">Qamar Ibrahim</h1>
-            <p className="text-lg md:text-xl text-gray-700 dark:text-yellow-300 mb-4 text-center">Python Django Developer</p>
-            {/* Social icons row */}
-            <div className="flex space-x-4 mb-6">
-              <a href="https://x.com/qamar62" className="rounded-full border border-gray-300 dark:border-gray-500 p-2 hover:bg-yellow-400 hover:text-black transition-colors text-gray-700 dark:text-gray-200" target="_blank" rel="noopener noreferrer" aria-label="X/Twitter"><svg className="w-6 h-6" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M17.53 6.47L6.47 17.53M6.47 6.47l11.06 11.06" /></svg></a>
-              <a href="https://instagram.com/qam600" className="rounded-full border border-gray-300 dark:border-gray-500 p-2 hover:bg-yellow-400 hover:text-black transition-colors text-gray-700 dark:text-gray-200" target="_blank" rel="noopener noreferrer" aria-label="Instagram"><svg className="w-6 h-6" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5" ry="5" /><circle cx="12" cy="12" r="5" /><circle cx="17.5" cy="6.5" r="1.5" /></svg></a>
-              <a href="https://facebook.com/qam600" className="rounded-full border border-gray-300 dark:border-gray-500 p-2 hover:bg-yellow-400 hover:text-black transition-colors text-gray-700 dark:text-gray-200" target="_blank" rel="noopener noreferrer" aria-label="Facebook"><svg className="w-6 h-6" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 0 0-5 5v3H6v4h4v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z" /></svg></a>
-              <a href="https://www.linkedin.com/in/iamqam/" className="rounded-full border border-gray-300 dark:border-gray-500 p-2 hover:bg-yellow-400 hover:text-black transition-colors text-gray-700 dark:text-gray-200" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn"><svg className="w-6 h-6" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-4 0v7h-4v-7a6 6 0 0 1 6-6z" /><rect x="2" y="9" width="4" height="12" /><circle cx="4" cy="4" r="2" /></svg></a>
-              <a href="https://dribbble.com/qamar62" className="rounded-full border border-gray-300 dark:border-gray-500 p-2 hover:bg-yellow-400 hover:text-black transition-colors text-gray-700 dark:text-gray-200" target="_blank" rel="noopener noreferrer" aria-label="Dribbble"><svg className="w-6 h-6" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" /><path d="M2 12a10 10 0 0 1 20 0" /><path d="M12 2a10 10 0 0 1 0 20" /><path d="M2 12a10 10 0 0 0 20 0" /></svg></a>
+      {/* Mobile menu */}
+      <div className={`fixed inset-0 bg-black bg-opacity-80 z-40 md:hidden transition-opacity ${mobileMenuOpen ? 'opacity-100' : 'opacity-0 pointer-events-none'}`} onClick={() => setMobileMenuOpen(false)}></div>
+      <div className={`fixed top-0 right-0 h-full w-64 z-40 transition-transform duration-300 md:hidden ${mobileMenuOpen ? 'translate-x-0' : 'translate-x-full'}`} style={{ background: 'var(--surface)' }}>
+        <div className="flex flex-col p-8 space-y-6">
+          <button onClick={() => setDarkMode(!darkMode)} className="self-end w-8 h-8 rounded-full flex items-center justify-center" style={{ background: 'var(--surface-2)', color: 'var(--gold)' }}>
+            {darkMode ? <FaSun size={18} /> : <FaMoon size={18} />}
+          </button>
+          {sections.map((section) => (
+            <button
+              key={section.id}
+              onClick={() => { handleNavClick(section.id); setMobileMenuOpen(false); }}
+              className="text-left py-2 text-lg tracking-wider transition-colors"
+              style={{ 
+                color: activeSection === section.id ? 'var(--gold)' : 'var(--text-dim)',
+                fontFamily: "'Syne', sans-serif",
+                fontWeight: activeSection === section.id ? 700 : 400
+              }}
+            >
+              {section.label}
+            </button>
+          ))}
+        </div>
+      </div>
+
+      {/* Bio Avatar Button */}
+      <button
+        onClick={() => setBioCardVisible(!bioCardVisible)}
+        className="fixed left-6 bottom-6 z-50 w-12 h-12 rounded-full overflow-hidden transition-all duration-300 hover:scale-110"
+        style={{ border: '2px solid var(--gold)', boxShadow: '0 0 20px rgba(245,197,24,0.3)' }}
+        aria-label="Toggle bio"
+      >
+        <img src="/qam.jpg" alt="Qamar Ibrahim" className="w-full h-full object-cover" />
+      </button>
+
+      {/* Bio Card - Glass Morphism Modal */}
+      <div className={`fixed inset-0 z-50 flex items-center justify-center p-4 transition-all duration-500 ${bioCardVisible ? 'opacity-100' : 'opacity-0 pointer-events-none'}`} style={{ background: 'rgba(0,0,0,0.92)' }} onClick={() => setBioCardVisible(false)}>
+        <div 
+          className="max-w-lg w-full overflow-hidden transition-all duration-700 relative"
+          style={{ 
+            background: 'rgba(17,24,32,0.98)',
+            backdropFilter: 'blur(30px)',
+            border: '1px solid var(--border)',
+            borderRadius: '24px',
+            transform: bioCardVisible ? 'scale(1) translateY(0)' : 'scale(0.9) translateY(20px)',
+            boxShadow: '0 25px 50px -12px rgba(0,0,0,0.5), 0 0 0 1px rgba(245,197,24,0.1)'
+          }}
+          onClick={(e) => e.stopPropagation()}
+        >
+          {/* Animated Border Glow */}
+          <div className="absolute inset-0 rounded-3xl opacity-50 pointer-events-none" style={{ 
+            background: 'linear-gradient(135deg, transparent 0%, var(--gold-dim) 50%, transparent 100%)',
+            filter: 'blur(20px)',
+            animation: bioCardVisible ? 'shimmerSweep 3s ease-in-out infinite' : 'none'
+          }}></div>
+
+          {/* Image Section with Gradient Overlay */}
+          <div className="relative h-72 overflow-hidden">
+            <img src="/qam.jpg" alt="Qamar Ibrahim" className="w-full h-full object-cover" style={{ filter: 'brightness(0.9) contrast(1.1)' }} />
+            <div className="absolute inset-0" style={{ 
+              background: 'linear-gradient(180deg, transparent 0%, rgba(10,15,20,0.4) 60%, rgba(10,15,20,0.95) 100%)' 
+            }}></div>
+            
+            {/* Floating Name Tag */}
+            <div className="absolute bottom-6 left-6 right-6">
+              <h2 className="text-4xl font-bold mb-1 tracking-tight" style={{ 
+                fontFamily: "'Syne', sans-serif", 
+                color: 'var(--text)',
+                textShadow: '0 2px 10px rgba(0,0,0,0.5)'
+              }}>Qamar Ibrahim</h2>
+              <div className="flex items-center gap-2">
+                <div className="w-2 h-2 rounded-full animate-pulse" style={{ background: 'var(--gold)', boxShadow: '0 0 10px var(--gold)' }}></div>
+                <p className="text-sm tracking-wider uppercase" style={{ 
+                  color: 'var(--gold)', 
+                  fontFamily: "'DM Mono', monospace",
+                  letterSpacing: '0.1em'
+                }}>Available for Work</p>
+              </div>
             </div>
-            <a href="/QAMcv.pdf" download className="bg-yellow-400 text-black px-8 py-3 rounded-full font-bold hover:bg-yellow-500 transition-all text-lg shadow-md flex items-center justify-center w-full mb-2">
-              DOWNLOAD CV
-              <svg className="w-6 h-6 ml-2" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2M7 11l5 5 5-5M12 4v12" /></svg>
-            </a>
-            <p className="text-xs text-gray-400 dark:text-gray-500 mt-2">© 2024 Qamar Ibrahim. All Rights Reserved.</p>
+          </div>
+
+          {/* Content Section */}
+          <div className="p-8 relative">
+            {/* Role & Expertise */}
+            <div className="mb-8">
+              <p className="text-lg mb-3" style={{ 
+                color: 'var(--text)', 
+                fontFamily: "'Syne', sans-serif",
+                fontWeight: 600
+              }}>Python Django Developer & DevOps Engineer</p>
+              <div className="flex flex-wrap gap-2">
+                {['AI Integration', 'Cloud Computing', 'Docker', 'React'].map((tag, idx) => (
+                  <span 
+                    key={idx}
+                    className="px-3 py-1 text-xs tracking-wide"
+                    style={{ 
+                      background: 'var(--gold-dim)',
+                      color: 'var(--gold)',
+                      fontFamily: "'DM Mono', monospace",
+                      border: '1px solid var(--border)',
+                      borderRadius: '4px'
+                    }}
+                  >
+                    {tag}
+                  </span>
+                ))}
+              </div>
+            </div>
+
+            {/* Divider */}
+            <div className="h-px mb-8" style={{ background: 'linear-gradient(90deg, transparent, var(--border), transparent)' }}></div>
+
+            {/* Social Links with Staggered Animation */}
+            <div className="flex justify-center gap-4 mb-8">
+              {[
+                { href: 'https://github.com/qamar62', icon: <FaGithub size={22} />, label: 'GitHub' },
+                { href: 'https://www.linkedin.com/in/iamqam/', icon: <FaLinkedin size={22} />, label: 'LinkedIn' },
+                { href: 'https://x.com/qamar62', icon: <FaTwitter size={22} />, label: 'Twitter' }
+              ].map((social, idx) => (
+                <a
+                  key={idx}
+                  href={social.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-12 h-12 flex items-center justify-center transition-all duration-300 hover:scale-110 relative group"
+                  style={{ 
+                    border: '1px solid var(--border)', 
+                    color: 'var(--text)',
+                    borderRadius: '12px',
+                    opacity: bioCardVisible ? 1 : 0,
+                    transform: bioCardVisible ? 'translateY(0)' : 'translateY(10px)',
+                    transition: `all 0.5s cubic-bezier(0.16,1,0.3,1) ${0.3 + idx * 0.1}s`
+                  }}
+                  aria-label={social.label}
+                  onMouseEnter={(e) => { 
+                    e.currentTarget.style.background = 'var(--gold)'; 
+                    e.currentTarget.style.borderColor = 'var(--gold)';
+                    e.currentTarget.style.color = 'var(--deep)'; 
+                  }}
+                  onMouseLeave={(e) => { 
+                    e.currentTarget.style.background = 'transparent'; 
+                    e.currentTarget.style.borderColor = 'var(--border)';
+                    e.currentTarget.style.color = 'var(--text)'; 
+                  }}
+                >
+                  {social.icon}
+                  <span className="absolute -bottom-8 left-1/2 -translate-x-1/2 text-xs opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap" style={{ color: 'var(--text-dim)', fontFamily: "'DM Mono', monospace" }}>
+                    {social.label}
+                  </span>
+                </a>
+              ))}
+            </div>
+
+            {/* CTA Button with Gradient Border */}
+            <div className="relative group">
+              <div className="absolute inset-0 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300" style={{ 
+                background: 'linear-gradient(135deg, var(--gold), var(--gold-dim))',
+                filter: 'blur(8px)'
+              }}></div>
+              <a 
+                href="/QAMcv.pdf" 
+                download 
+                className="relative w-full py-4 flex items-center justify-center font-bold text-lg tracking-widest transition-all duration-300 overflow-hidden"
+                style={{ 
+                  background: 'var(--gold)', 
+                  color: 'var(--deep)', 
+                  fontFamily: "'Syne', sans-serif",
+                  borderRadius: '8px',
+                  boxShadow: '0 4px 15px rgba(245,197,24,0.3)'
+                }}
+                onMouseEnter={(e) => e.currentTarget.style.transform = 'translateY(-2px)'}
+                onMouseLeave={(e) => e.currentTarget.style.transform = 'translateY(0)'}
+              >
+                <span className="relative z-10">DOWNLOAD CV</span>
+                <svg className="w-5 h-5 ml-3 transition-transform group-hover:translate-y-1 relative z-10" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M19 14l-7 7m0 0l-7-7m7 7V3" />
+                </svg>
+              </a>
+            </div>
+
+            {/* Footer Note */}
+            <p className="text-center mt-6 text-xs" style={{ color: 'var(--text-dim)', fontFamily: "'DM Mono', monospace" }}>
+              © 2025 Qamar Ibrahim · All Rights Reserved
+            </p>
           </div>
         </div>
       </div>
 
       {/* Main Content */}
-      <div className="flex-1 flex flex-col px-4 md:px-8 lg:px-12 py-4 md:py-6 space-y-6 md:space-y-8 overflow-y-auto ml-0 md:ml-20 lg:ml-20">
-        <section ref={sectionRefs.home} id="home" className="min-h-[60vh] md:min-h-[70vh] flex items-center pt-4 md:pt-8">
-          <div className="w-full max-w-4xl">
-            <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 dark:text-white mb-4 leading-tight">Frontend to Backend <span className="block sm:inline">Development</span> <span className="text-yellow-400 italic block sm:inline">Digital Solutions</span></h2>
-            <p className="text-gray-700 dark:text-gray-300 text-sm sm:text-base md:text-lg lg:text-xl max-w-3xl mb-4 leading-relaxed">
-              I handle every aspect of your web project—from initial planning and design to development, deployment, and ongoing support.
-            </p>
-          </div>
-        </section>
-        <section ref={sectionRefs.about} id="about" className="min-h-[50vh] md:min-h-[60vh] flex items-center pt-4 md:pt-0">
-          <div className="w-full max-w-4xl">
-            <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold text-gray-900 dark:text-white mb-4">About Me</h2>
-            <p className="text-gray-700 dark:text-gray-300 mb-6 max-w-3xl text-sm sm:text-base md:text-lg leading-relaxed">
-              Python Django Developer and DevOps Engineer with extensive experience in AI chat integration, automation workflows, and cloud computing. Proficient in digital marketing, Google API integration, and containerized application deployment using Docker. Strong understanding of front-end technologies (React) with hands-on experience in troubleshooting and optimizing workflows. Passionate about delivering high-impact solutions that streamline operations and drive user engagement.
-            </p>
-            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-3 md:gap-4 max-w-3xl">
-              <div className="bg-gray-700 dark:bg-gray-600 rounded-lg p-3 text-center text-yellow-400 text-xs sm:text-sm font-medium transition-all hover:bg-gray-600 dark:hover:bg-gray-500 hover:scale-105">Python</div>
-              <div className="bg-gray-700 dark:bg-gray-600 rounded-lg p-3 text-center text-yellow-400 text-xs sm:text-sm font-medium transition-all hover:bg-gray-600 dark:hover:bg-gray-500 hover:scale-105">Django</div>
-              <div className="bg-gray-700 dark:bg-gray-600 rounded-lg p-3 text-center text-yellow-400 text-xs sm:text-sm font-medium transition-all hover:bg-gray-600 dark:hover:bg-gray-500 hover:scale-105">DevOps</div>
-              <div className="bg-gray-700 dark:bg-gray-600 rounded-lg p-3 text-center text-yellow-400 text-xs sm:text-sm font-medium transition-all hover:bg-gray-600 dark:hover:bg-gray-500 hover:scale-105">React</div>
-              <div className="bg-gray-700 dark:bg-gray-600 rounded-lg p-3 text-center text-yellow-400 text-xs sm:text-sm font-medium transition-all hover:bg-gray-600 dark:hover:bg-gray-500 hover:scale-105">Docker</div>
-              <div className="bg-gray-700 dark:bg-gray-600 rounded-lg p-3 text-center text-yellow-400 text-xs sm:text-sm font-medium transition-all hover:bg-gray-600 dark:hover:bg-gray-500 hover:scale-105">Proxmox</div>
-              <div className="bg-gray-700 dark:bg-gray-600 rounded-lg p-3 text-center text-yellow-400 text-xs sm:text-sm font-medium transition-all hover:bg-gray-600 dark:hover:bg-gray-500 hover:scale-105">Ai Workflow</div>
-              <div className="bg-gray-700 dark:bg-gray-600 rounded-lg p-3 text-center text-yellow-400 text-xs sm:text-sm font-medium transition-all hover:bg-gray-600 dark:hover:bg-gray-500 hover:scale-105">SelfHosting</div>
-              <div className="bg-gray-700 dark:bg-gray-600 rounded-lg p-3 text-center text-yellow-400 text-xs sm:text-sm font-medium transition-all hover:bg-gray-600 dark:hover:bg-gray-500 hover:scale-105">Digital Complete Solutions</div>
+      <div className="flex-1 ml-0 md:ml-20 overflow-y-auto">
+        {/* Hero Section */}
+        <section ref={sectionRefs.home} id="home" className="min-h-screen flex items-center justify-center px-6 md:px-12 lg:px-24 relative overflow-hidden">
+          {/* Floating Particles */}
+          {[...Array(12)].map((_, i) => (
+            <span
+              key={i}
+              className="absolute w-1 h-1 rounded-full pointer-events-none"
+              style={{
+                background: 'var(--gold)',
+                left: `${Math.random() * 100}%`,
+                top: `${Math.random() * 100}%`,
+                '--float-x': `${(Math.random() - 0.5) * 60}px`,
+                '--float-y': `${(Math.random() - 0.5) * 60}px`,
+                animation: `floatParticle ${4 + Math.random() * 4}s ease-in-out infinite`,
+                animationDelay: `${Math.random() * 2}s`
+              }}
+            ></span>
+          ))}
+
+          <div className="max-w-5xl w-full relative z-10">
+            <h1 className="font-bold mb-6 leading-none group cursor-default" style={{ fontFamily: "'Syne', sans-serif" }}>
+              <div className="text-6xl md:text-8xl lg:text-9xl tracking-tighter mb-2" style={{ color: 'var(--text)', fontWeight: 800, letterSpacing: '-0.05em' }}>
+                QAMAR
+              </div>
+              <div className="text-5xl md:text-7xl lg:text-8xl tracking-tight relative inline-block" style={{ color: 'var(--text)', fontWeight: 800 }}>
+                IBRAHIM
+                <div className="absolute bottom-0 left-0 h-px origin-left" style={{ background: 'var(--gold)', animation: 'lineExpand 1.2s cubic-bezier(0.16,1,0.3,1) 0.5s both' }}></div>
+              </div>
+            </h1>
+
+            <div className="flex flex-wrap gap-3 mb-8 text-sm md:text-base" style={{ fontFamily: "'DM Mono', monospace", color: 'var(--text-dim)' }}>
+              {['Python Django', 'DevOps', 'AI Workflows'].map((word, idx) => (
+                <span 
+                  key={idx}
+                  className="opacity-0"
+                  style={{ 
+                    animation: 'fadeSlideUp 0.8s cubic-bezier(0.16,1,0.3,1) both',
+                    animationDelay: `${0.8 + idx * 0.15}s`
+                  }}
+                >
+                  {word}
+                  {idx < 2 && <span style={{ color: 'var(--gold)' }}> · </span>}
+                </span>
+              ))}
+            </div>
+
+            <div className="h-px w-48 mb-12 origin-center" style={{ background: 'var(--gold)', animation: 'lineExpand 1s cubic-bezier(0.16,1,0.3,1) 1.2s both' }}></div>
+
+            {/* Rotating Badge */}
+            <div className="absolute bottom-12 right-0 md:bottom-24 md:right-12 w-24 h-24 md:w-32 md:h-32">
+              <svg viewBox="0 0 100 100" className="w-full h-full" style={{ animation: 'rotateCircle 20s linear infinite' }}>
+                <defs>
+                  <path id="circlePath" d="M 50,50 m -37,0 a 37,37 0 1,1 74,0 a 37,37 0 1,1 -74,0" />
+                </defs>
+                <text style={{ fill: 'var(--gold)', fontSize: '10px', fontFamily: "'DM Mono', monospace", letterSpacing: '2px' }}>
+                  <textPath href="#circlePath">AVAILABLE FOR WORK · 2025 · </textPath>
+                </text>
+              </svg>
             </div>
           </div>
         </section>
-        <section ref={sectionRefs.projects} id="projects" className="min-h-[60vh] md:min-h-[70vh] flex items-center pt-4 md:pt-0">
-          <div className="w-full max-w-6xl">
-            <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold text-gray-900 dark:text-white mb-4">Portfolio</h2>
-            <p className="text-gray-700 dark:text-gray-300 mb-6 text-sm sm:text-base md:text-lg">Check out some of my recent projects below.</p>
+
+        {/* About Section */}
+        <section ref={sectionRefs.about} id="about" className="min-h-screen flex items-center px-6 md:px-12 lg:px-24 py-20 relative">
+          <div className="max-w-4xl w-full">
+            <div className="relative mb-8">
+              <span className="absolute -left-4 md:-left-12 top-0 text-8xl md:text-9xl font-bold opacity-15" style={{ color: 'var(--gold)', fontFamily: "'Syne', sans-serif" }}>02</span>
+              <h2 className="text-4xl md:text-6xl font-bold relative z-10" style={{ fontFamily: "'Syne', sans-serif", color: 'var(--text)' }}>ABOUT</h2>
+            </div>
+
+            <p className="mb-12 text-base md:text-lg leading-relaxed" style={{ color: 'var(--text-dim)' }}>
+              Python Django Developer and DevOps Engineer with extensive experience in AI chat integration, automation workflows, and cloud computing. Proficient in digital marketing, Google API integration, and containerized application deployment using Docker. Strong understanding of front-end technologies (React) with hands-on experience in troubleshooting and optimizing workflows. Passionate about delivering high-impact solutions that streamline operations and drive user engagement.
+            </p>
+
+            {/* Skills Pills */}
+            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 mb-12">
+              {['Python', 'Django', 'DevOps', 'React', 'Docker', 'Proxmox', 'AI Workflow', 'Self-Hosting'].map((skill, idx) => (
+                <div
+                  key={idx}
+                  className="px-4 py-3 text-center text-sm font-medium transition-all duration-300 cursor-default group overflow-hidden relative"
+                  style={{ 
+                    border: '1px solid var(--border)',
+                    color: 'var(--gold)',
+                    fontFamily: "'DM Mono', monospace",
+                    background: 'transparent'
+                  }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.background = 'linear-gradient(90deg, var(--gold-dim) 0%, transparent 100%)';
+                    e.currentTarget.style.backgroundSize = '200% 100%';
+                    e.currentTarget.style.animation = 'shimmerSweep 1.5s ease-in-out';
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.background = 'transparent';
+                    e.currentTarget.style.animation = 'none';
+                  }}
+                >
+                  {skill}
+                </div>
+              ))}
+            </div>
+
+            {/* Career Timeline */}
+            <div className="space-y-6">
+              <h3 className="text-xl font-bold mb-6" style={{ fontFamily: "'Syne', sans-serif", color: 'var(--text)' }}>Career Highlights</h3>
+              {[
+                { year: '2024', role: 'Senior DevOps Engineer' },
+                { year: '2022', role: 'Full-Stack Django Developer' },
+                { year: '2020', role: 'Python Developer' }
+              ].map((item, idx) => (
+                <div key={idx} className="flex items-center space-x-6 group">
+                  <span className="text-2xl font-bold w-20" style={{ color: 'var(--gold)', fontFamily: "'Syne', sans-serif" }}>{item.year}</span>
+                  <div className="w-2 h-2 rounded-full transition-all duration-300 group-hover:scale-150" style={{ background: 'var(--gold)' }}></div>
+                  <div className="flex-1 h-px" style={{ background: 'var(--border)' }}></div>
+                  <span className="text-sm md:text-base" style={{ color: 'var(--text-dim)', fontFamily: "'DM Mono', monospace" }}>{item.role}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* Projects Section */}
+        <section ref={sectionRefs.projects} id="projects" className="min-h-screen flex items-center px-6 md:px-12 lg:px-24 py-20">
+          <div className="max-w-6xl w-full">
+            <div className="relative mb-12">
+              <span className="absolute -left-4 md:-left-12 top-0 text-8xl md:text-9xl font-bold opacity-15" style={{ color: 'var(--gold)', fontFamily: "'Syne', sans-serif" }}>03</span>
+              <h2 className="text-4xl md:text-6xl font-bold relative z-10 mb-4" style={{ fontFamily: "'Syne', sans-serif", color: 'var(--text)' }}>PROJECTS</h2>
+              <p className="text-base md:text-lg" style={{ color: 'var(--text-dim)' }}>Selected work that ships real value</p>
+            </div>
             <Projects />
           </div>
         </section>
-        <section ref={sectionRefs.contact} id="contact" className="min-h-[50vh] md:min-h-[60vh] flex items-center pt-4 md:pt-0">
-          <div className="w-full max-w-4xl">
-            <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold text-gray-900 dark:text-white mb-4">Contact</h2>
-            <p className="text-gray-700 dark:text-gray-300 mb-6 text-sm sm:text-base md:text-lg">Feel free to reach out for collaboration or just a friendly hello!</p>
-            <form className="space-y-4 w-full max-w-lg">
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <input type="text" placeholder="Name" className="w-full px-4 py-3 rounded-lg bg-gray-700 dark:bg-gray-600 text-white text-sm sm:text-base border border-gray-600 focus:border-yellow-400 focus:outline-none transition-colors" />
-                <input type="email" placeholder="Email" className="w-full px-4 py-3 rounded-lg bg-gray-700 dark:bg-gray-600 text-white text-sm sm:text-base border border-gray-600 focus:border-yellow-400 focus:outline-none transition-colors" />
+
+        {/* Contact Section */}
+        <section ref={sectionRefs.contact} id="contact" className="min-h-screen flex items-center px-6 md:px-12 lg:px-24 py-20">
+          <div className="max-w-2xl w-full">
+            <div className="relative mb-12">
+              <span className="absolute -left-4 md:-left-12 top-0 text-8xl md:text-9xl font-bold opacity-15" style={{ color: 'var(--gold)', fontFamily: "'Syne', sans-serif" }}>04</span>
+              <h2 className="text-4xl md:text-6xl font-bold relative z-10 mb-4" style={{ fontFamily: "'Syne', sans-serif", color: 'var(--text)' }}>CONTACT</h2>
+              <p className="text-base md:text-lg" style={{ color: 'var(--text-dim)' }}>Let's build something together</p>
+            </div>
+
+            <form className="space-y-8">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                {['Name', 'Email'].map((label, idx) => (
+                  <div key={idx} className="relative group">
+                    <input 
+                      type={label === 'Email' ? 'email' : 'text'}
+                      placeholder={label}
+                      className="w-full bg-transparent pb-3 outline-none transition-all duration-300"
+                      style={{ 
+                        borderBottom: '1px solid var(--border)',
+                        color: 'var(--text)',
+                        fontFamily: "'DM Mono', monospace"
+                      }}
+                      onFocus={(e) => e.target.style.borderBottom = '1px solid var(--gold)'}
+                      onBlur={(e) => e.target.style.borderBottom = '1px solid var(--border)'}
+                    />
+                  </div>
+                ))}
               </div>
-              <textarea placeholder="Message" className="w-full px-4 py-3 rounded-lg bg-gray-700 dark:bg-gray-600 text-white text-sm sm:text-base border border-gray-600 focus:border-yellow-400 focus:outline-none transition-colors resize-none" rows={4}></textarea>
-              <button type="submit" className="bg-yellow-400 text-black px-8 py-3 rounded-full font-semibold hover:bg-yellow-500 transition-all text-sm sm:text-base shadow-lg hover:shadow-xl transform hover:-translate-y-0.5">Send Message</button>
+              <div className="relative group">
+                <textarea 
+                  placeholder="Message"
+                  rows={4}
+                  className="w-full bg-transparent pb-3 outline-none resize-none transition-all duration-300"
+                  style={{ 
+                    borderBottom: '1px solid var(--border)',
+                    color: 'var(--text)',
+                    fontFamily: "'DM Mono', monospace"
+                  }}
+                  onFocus={(e) => e.target.style.borderBottom = '1px solid var(--gold)'}
+                  onBlur={(e) => e.target.style.borderBottom = '1px solid var(--border)'}
+                ></textarea>
+              </div>
+              <button 
+                type="submit"
+                className="px-12 py-4 font-bold text-lg tracking-wide transition-all duration-300 relative overflow-hidden group"
+                style={{ 
+                  border: '2px solid var(--gold)',
+                  color: 'var(--gold)',
+                  background: 'transparent',
+                  fontFamily: "'Syne', sans-serif"
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.background = 'var(--gold)';
+                  e.currentTarget.style.color = 'var(--deep)';
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.background = 'transparent';
+                  e.currentTarget.style.color = 'var(--gold)';
+                }}
+              >
+                SEND MESSAGE
+              </button>
             </form>
+
+            <div className="mt-16 flex space-x-6">
+              {[
+                { href: 'https://github.com/qamar62', icon: <FaGithub size={24} />, label: 'GitHub' },
+                { href: 'https://www.linkedin.com/in/iamqam/', icon: <FaLinkedin size={24} />, label: 'LinkedIn' },
+                { href: 'https://x.com/qamar62', icon: <FaTwitter size={24} />, label: 'Twitter' }
+              ].map((social, idx) => (
+                <a
+                  key={idx}
+                  href={social.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="transition-all duration-300 hover:scale-110"
+                  style={{ color: 'var(--text-dim)' }}
+                  aria-label={social.label}
+                  onMouseEnter={(e) => e.currentTarget.style.color = 'var(--gold)'}
+                  onMouseLeave={(e) => e.currentTarget.style.color = 'var(--text-dim)'}
+                >
+                  {social.icon}
+                </a>
+              ))}
+            </div>
           </div>
         </section>
       </div>
