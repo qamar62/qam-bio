@@ -1,102 +1,199 @@
 import React from 'react'
+import {
+  FaPlane,
+  FaGlobe,
+  FaDumbbell,
+  FaUtensils,
+  FaBuilding,
+  FaMicrophoneAlt,
+  FaExternalLinkAlt,
+  FaLock,
+} from 'react-icons/fa'
+
+const projects = [
+  {
+    title: 'Five Tours — Booking Platform',
+    category: 'Travel · Flagship',
+    description:
+      'End-to-end travel booking platform with a complete reservation engine, payment gateway integration, CRM and operations dashboards.',
+    tech: ['Django', 'DRF', 'PostgreSQL', 'Redis', 'Celery', 'Next.js'],
+    icon: <FaPlane />,
+    accent: ['#F5C518', '#E08A00'],
+    link: 'https://five.tours',
+    linkLabel: 'Visit site',
+  },
+  {
+    title: 'Five Tours B2B Portal',
+    category: 'B2B Travel',
+    description:
+      'B2B travel portal with agent and admin dashboards, real-time inventory, quote generation and role-based access.',
+    tech: ['Django', 'DRF', 'PostgreSQL', 'Redis'],
+    icon: <FaGlobe />,
+    accent: ['#4FD1C5', '#2C7A7B'],
+    link: 'https://b2b.five.tours',
+    linkLabel: 'Visit site',
+  },
+  {
+    title: 'Five Motion Sports',
+    category: 'B2B Commerce',
+    description:
+      'Sports supply and B2B commerce platform covering product catalogue, MOQ / lead-time management and OEM workflows.',
+    tech: ['Django', 'DRF', 'PostgreSQL', 'Celery', 'ntfy'],
+    icon: <FaDumbbell />,
+    accent: ['#63B3ED', '#2B6CB0'],
+    link: 'https://fmsportz.com',
+    linkLabel: 'Visit site',
+  },
+  {
+    title: 'Khanz Restaurant',
+    category: 'Restaurant',
+    description:
+      'Restaurant platform with menu management, online ordering and an operations backend built on Django.',
+    tech: ['Django', 'PostgreSQL', 'REST API'],
+    icon: <FaUtensils />,
+    accent: ['#F6AD55', '#C05621'],
+    link: 'https://khanz.qaam.work',
+    linkLabel: 'Visit site',
+  },
+  {
+    title: 'Property Management Software',
+    category: 'PropTech · Private',
+    description:
+      'Property & contract management system handling ~1,500 units — tenancy contracts, renewals, billing and reporting workflows.',
+    tech: ['Django', 'DRF', 'PostgreSQL', 'Redis', 'Celery'],
+    icon: <FaBuilding />,
+    accent: ['#B794F4', '#6B46C1'],
+    link: '',
+    linkLabel: 'Private',
+  },
+  {
+    title: 'Multilingual AI Voice Assistant',
+    category: 'AI · Self-Hosted',
+    description:
+      'Real-time, multilingual conversational voice bot for booking and support — ElevenLabs TTS + LLM APIs wired to backend booking logic on self-hosted infrastructure.',
+    tech: ['Python', 'LLM APIs', 'ElevenLabs', 'DRF', 'Proxmox'],
+    icon: <FaMicrophoneAlt />,
+    accent: ['#F687B3', '#B83280'],
+    link: '',
+    linkLabel: 'Internal',
+  },
+]
 
 const Projects = () => {
-  const projects = [
-    {
-      title: 'Travel and Tour Booking App ( WEB )',
-      description: 'Travel System with payment gateway integration, Backend CRM',
-      image: 'https://images.unsplash.com/photo-1465101046530-73398c7f28ca?auto=format&fit=crop&w=400&q=80',
-      link: 'https://www.arabianknightstours.com',
-    },
-    {
-      title: 'Car Rental System',
-      description: 'Car rental booking system with Backend',
-      image: 'https://images.unsplash.com/photo-1461749280684-dccba630e2f6?auto=format&fit=crop&w=400&q=80',
-      link: 'https://www.justdrivecar.me',
-    },
-    {
-      title: 'E Commerce Website',
-      description: 'React JS Application',
-      image: 'https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&w=400&q=80',
-      link: 'https://www.camsfix.com',
-    },
-    {
-      title: 'DashBoard Using Django',
-      description: 'Dashboard with React and Django',
-      image: 'https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=400&q=80',
-      link: '',
-    },
-    {
-      title: 'B2B Travel Portal',
-      description: 'B2B Travel Portal with agent and admin dashboards (frontend & backend).',
-      image: 'https://images.unsplash.com/photo-1465101046530-73398c7f28ca?auto=format&fit=crop&w=400&q=80',
-      link: 'https://b2b.qamdm.xyz',
-    },
-    {
-      title: 'Laptop Ecommerce Store',
-      description: 'Laptop ecommerce store with frontend and backend.',
-      image: 'https://images.unsplash.com/photo-1517336714731-489689fd1ca8?auto=format&fit=crop&w=400&q=80',
-      link: 'https://laptop.qamdm.xyz',
-    },
-    {
-      title: 'Single Activity Travel and Tourism Webapp',
-      description: 'Travel and tourism webapp for single activity booking.',
-      image: 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=400&q=80',
-      link: 'https://gtravel-six.vercel.app/',
-    },
-  ]
-
   return (
-    <div name="projects" className="w-full py-16">
-      <div className="max-w-[1200px] mx-auto p-4 flex flex-col justify-center w-full h-full">
-        <div className="pb-8">
-          <p className="text-4xl font-bold inline border-b-4 border-[#ff5e62] text-gray-800 dark:text-white">Projects</p>
-          <p className="py-6 text-gray-600 dark:text-gray-400">Check out some of my recent projects</p>
-        </div>
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
-          {projects.map((project, index) => (
+    <div name="projects" className="w-full">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        {projects.map((project, index) => {
+          const hasLink = Boolean(project.link)
+          return (
             <div
               key={index}
-              className="group bg-white dark:bg-gray-800 rounded-3xl border border-gray-100 dark:border-gray-700 shadow-xl overflow-hidden flex flex-col transition-all duration-300 hover:shadow-2xl hover:-translate-y-2 hover:scale-[1.03]"
+              className="group relative flex flex-col overflow-hidden transition-all duration-300 hover:-translate-y-1.5"
+              style={{
+                background: 'var(--surface)',
+                border: '1px solid var(--border)',
+                borderRadius: '18px',
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.boxShadow = `0 18px 40px -18px ${project.accent[0]}55`
+                e.currentTarget.style.borderColor = project.accent[0]
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.boxShadow = 'none'
+                e.currentTarget.style.borderColor = 'var(--border)'
+              }}
             >
-              {/* Image area with overlay */}
-              <div className="relative w-full h-48 bg-gray-200 dark:bg-gray-700 overflow-hidden">
-                <img
-                  src={project.image}
-                  alt={project.title}
-                  className="w-full h-full object-cover object-center rounded-t-3xl transition-all duration-300 group-hover:scale-105"
+              {/* Icon / accent band */}
+              <div
+                className="relative h-28 flex items-center justify-center overflow-hidden"
+                style={{
+                  background: `linear-gradient(135deg, ${project.accent[0]}22 0%, ${project.accent[1]}11 100%)`,
+                }}
+              >
+                <div
+                  className="absolute inset-0 opacity-40"
+                  style={{
+                    backgroundImage:
+                      'radial-gradient(circle at 20% 20%, rgba(255,255,255,0.06) 0, transparent 40%)',
+                  }}
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-300 rounded-t-3xl" />
+                <div
+                  className="text-4xl transition-transform duration-300 group-hover:scale-110"
+                  style={{ color: project.accent[0] }}
+                >
+                  {project.icon}
+                </div>
+                <span
+                  className="absolute top-3 left-4 text-[11px] tracking-widest uppercase"
+                  style={{
+                    color: project.accent[0],
+                    fontFamily: "'DM Mono', monospace",
+                    letterSpacing: '0.12em',
+                  }}
+                >
+                  {project.category}
+                </span>
               </div>
-              {/* Info */}
-              <div className="flex-1 px-6 py-5 flex flex-col items-center">
-                <h3 className="text-xl font-bold text-gray-800 dark:text-white text-center mb-2 group-hover:text-[#ff5e62] transition-colors">{project.title}</h3>
-                <p className="text-base text-gray-500 dark:text-gray-300 text-center mb-4">{project.description}</p>
-                <div className="flex justify-center mt-auto space-x-3 w-full">
+
+              {/* Body */}
+              <div className="flex flex-1 flex-col p-6">
+                <h3
+                  className="text-lg font-bold mb-2"
+                  style={{ fontFamily: "'Syne', sans-serif", color: 'var(--text)' }}
+                >
+                  {project.title}
+                </h3>
+                <p
+                  className="text-sm leading-relaxed mb-4 flex-1"
+                  style={{ color: 'var(--text-dim)' }}
+                >
+                  {project.description}
+                </p>
+
+                {/* Tech tags */}
+                <div className="flex flex-wrap gap-2 mb-5">
+                  {project.tech.map((t, i) => (
+                    <span
+                      key={i}
+                      className="px-2.5 py-1 text-[11px]"
+                      style={{
+                        background: 'var(--gold-dim)',
+                        color: 'var(--gold)',
+                        border: '1px solid var(--border)',
+                        borderRadius: '6px',
+                        fontFamily: "'DM Mono', monospace",
+                      }}
+                    >
+                      {t}
+                    </span>
+                  ))}
+                </div>
+
+                {/* Link */}
+                {hasLink ? (
                   <a
                     href={project.link}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className={`flex items-center justify-center px-5 py-2 bg-gradient-to-r from-[#ff9966] to-[#ff5e62] text-white rounded-full text-base font-semibold shadow-md hover:from-[#ff8a5b] hover:to-[#ff4b4b] transition-all duration-300 ${!project.link ? 'pointer-events-none opacity-50' : ''}`}
+                    className="inline-flex items-center gap-2 text-sm font-semibold transition-all duration-300 self-start"
+                    style={{ color: project.accent[0], fontFamily: "'DM Mono', monospace" }}
                   >
-                    <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M14 3h7v7m0 0L10 21l-7-7 11-11z" /></svg>
-                    Demo
+                    {project.linkLabel}
+                    <FaExternalLinkAlt className="text-xs transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
                   </a>
-                  <a
-                    href={project.code || '#'}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className={`flex items-center justify-center px-5 py-2 bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-white rounded-full text-base font-semibold shadow hover:bg-gray-200 dark:hover:bg-gray-600 transition-all duration-300 ${!project.code ? 'pointer-events-none opacity-50' : ''}`}
-                    tabIndex={!project.code ? -1 : 0}
+                ) : (
+                  <span
+                    className="inline-flex items-center gap-2 text-sm self-start"
+                    style={{ color: 'var(--text-dim)', fontFamily: "'DM Mono', monospace" }}
                   >
-                    <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M16 18l6-6-6-6M8 6l-6 6 6 6" /></svg>
-                    Code
-                  </a>
-                </div>
+                    <FaLock className="text-xs" />
+                    {project.linkLabel}
+                  </span>
+                )}
               </div>
             </div>
-          ))}
-        </div>
+          )
+        })}
       </div>
     </div>
   )

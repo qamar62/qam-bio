@@ -2,10 +2,12 @@ import React, { useRef, useState, useEffect } from 'react';
 import { FaSun, FaMoon, FaBars, FaTimes, FaGithub, FaLinkedin, FaTwitter } from 'react-icons/fa';
 import { useScrollReveal } from '../hooks/useScrollReveal';
 import Projects from './Projects';
+import Skills from './Skills';
 
 const sections = [
   { id: 'home', label: 'Home' },
   { id: 'about', label: 'About' },
+  { id: 'skills', label: 'Skills' },
   { id: 'projects', label: 'Projects' },
   { id: 'contact', label: 'Contact' },
 ];
@@ -14,6 +16,7 @@ function Home() {
   const sectionRefs = {
     home: useRef(null),
     about: useRef(null),
+    skills: useRef(null),
     projects: useRef(null),
     contact: useRef(null),
   };
@@ -183,9 +186,9 @@ function Home() {
                 color: 'var(--text)', 
                 fontFamily: "'Syne', sans-serif",
                 fontWeight: 600
-              }}>Python Django Developer & DevOps Engineer</p>
+              }}>Senior Python / Django Backend Engineer</p>
               <div className="flex flex-wrap gap-2">
-                {['AI Integration', 'Cloud Computing', 'Docker', 'React'].map((tag, idx) => (
+                {['AI Automation', 'DevOps', 'DRF', 'Proxmox'].map((tag, idx) => (
                   <span 
                     key={idx}
                     className="px-3 py-1 text-xs tracking-wide"
@@ -276,7 +279,7 @@ function Home() {
 
             {/* Footer Note */}
             <p className="text-center mt-6 text-xs" style={{ color: 'var(--text-dim)', fontFamily: "'DM Mono', monospace" }}>
-              © 2025 Qamar Ibrahim · All Rights Reserved
+              © 2026 Qamar Ibrahim · All Rights Reserved
             </p>
           </div>
         </div>
@@ -315,17 +318,17 @@ function Home() {
             </h1>
 
             <div className="flex flex-wrap gap-3 mb-8 text-sm md:text-base" style={{ fontFamily: "'DM Mono', monospace", color: 'var(--text-dim)' }}>
-              {['Python Django', 'DevOps', 'AI Workflows'].map((word, idx) => (
-                <span 
+              {['Senior Python / Django Engineer', 'AI Automation', 'DevOps'].map((word, idx, arr) => (
+                <span
                   key={idx}
                   className="opacity-0"
-                  style={{ 
+                  style={{
                     animation: 'fadeSlideUp 0.8s cubic-bezier(0.16,1,0.3,1) both',
                     animationDelay: `${0.8 + idx * 0.15}s`
                   }}
                 >
                   {word}
-                  {idx < 2 && <span style={{ color: 'var(--gold)' }}> · </span>}
+                  {idx < arr.length - 1 && <span style={{ color: 'var(--gold)' }}> · </span>}
                 </span>
               ))}
             </div>
@@ -339,7 +342,7 @@ function Home() {
                   <path id="circlePath" d="M 50,50 m -37,0 a 37,37 0 1,1 74,0 a 37,37 0 1,1 -74,0" />
                 </defs>
                 <text style={{ fill: 'var(--gold)', fontSize: '10px', fontFamily: "'DM Mono', monospace", letterSpacing: '2px' }}>
-                  <textPath href="#circlePath">AVAILABLE FOR WORK · 2025 · </textPath>
+                  <textPath href="#circlePath">AVAILABLE FOR WORK · 2026 · </textPath>
                 </text>
               </svg>
             </div>
@@ -355,12 +358,12 @@ function Home() {
             </div>
 
             <p className="mb-12 text-base md:text-lg leading-relaxed" style={{ color: 'var(--text-dim)' }}>
-              Python Django Developer and DevOps Engineer with extensive experience in AI chat integration, automation workflows, and cloud computing. Proficient in digital marketing, Google API integration, and containerized application deployment using Docker. Strong understanding of front-end technologies (React) with hands-on experience in troubleshooting and optimizing workflows. Passionate about delivering high-impact solutions that streamline operations and drive user engagement.
+              Senior Python / Django backend engineer with 10+ years designing, building and operating production systems. I specialize in REST API development, relational data modeling and scalable backend architecture with Django, DRF, PostgreSQL, Redis and Celery — and I've independently delivered full-stack platforms across travel, B2B commerce, sports and property management. Increasingly focused on AI automation and LLM integration, I build self-hosted, production-grade systems: a multilingual voice assistant (ElevenLabs + LLM APIs), n8n workflow automation and Claude / ChatGPT tool-calling that connect internal systems and booking engines to cut manual work. Backed by a strong DevOps foundation across Proxmox, Docker and CI/CD.
             </p>
 
             {/* Skills Pills */}
             <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 mb-12">
-              {['Python', 'Django', 'DevOps', 'React', 'Docker', 'Proxmox', 'AI Workflow', 'Self-Hosting'].map((skill, idx) => (
+              {['Python', 'Django', 'DRF', 'PostgreSQL', 'Redis', 'Celery', 'n8n', 'Proxmox'].map((skill, idx) => (
                 <div
                   key={idx}
                   className="px-4 py-3 text-center text-sm font-medium transition-all duration-300 cursor-default group overflow-hidden relative"
@@ -389,9 +392,9 @@ function Home() {
             <div className="space-y-6">
               <h3 className="text-xl font-bold mb-6" style={{ fontFamily: "'Syne', sans-serif", color: 'var(--text)' }}>Career Highlights</h3>
               {[
-                { year: '2024', role: 'Senior DevOps Engineer' },
-                { year: '2022', role: 'Full-Stack Django Developer' },
-                { year: '2020', role: 'Python Developer' }
+                { year: '2025', role: 'Backend Engineer — AI Automation & DevOps' },
+                { year: '2012', role: 'Backend Developer / Technical Ops Engineer' },
+                { year: '2008', role: 'Web & Online Operations Executive' }
               ].map((item, idx) => (
                 <div key={idx} className="flex items-center space-x-6 group">
                   <span className="text-2xl font-bold w-20" style={{ color: 'var(--gold)', fontFamily: "'Syne', sans-serif" }}>{item.year}</span>
@@ -404,11 +407,23 @@ function Home() {
           </div>
         </section>
 
+        {/* Skills Section */}
+        <section ref={sectionRefs.skills} id="skills" className="min-h-screen flex items-center px-6 md:px-12 lg:px-24 py-20">
+          <div className="max-w-5xl w-full">
+            <div className="relative mb-12">
+              <span className="absolute -left-4 md:-left-12 top-0 text-8xl md:text-9xl font-bold opacity-15" style={{ color: 'var(--gold)', fontFamily: "'Syne', sans-serif" }}>03</span>
+              <h2 className="text-4xl md:text-6xl font-bold relative z-10 mb-4" style={{ fontFamily: "'Syne', sans-serif", color: 'var(--text)' }}>SKILLS</h2>
+              <p className="text-base md:text-lg" style={{ color: 'var(--text-dim)' }}>The stack I design, build and operate with</p>
+            </div>
+            <Skills />
+          </div>
+        </section>
+
         {/* Projects Section */}
         <section ref={sectionRefs.projects} id="projects" className="min-h-screen flex items-center px-6 md:px-12 lg:px-24 py-20">
           <div className="max-w-6xl w-full">
             <div className="relative mb-12">
-              <span className="absolute -left-4 md:-left-12 top-0 text-8xl md:text-9xl font-bold opacity-15" style={{ color: 'var(--gold)', fontFamily: "'Syne', sans-serif" }}>03</span>
+              <span className="absolute -left-4 md:-left-12 top-0 text-8xl md:text-9xl font-bold opacity-15" style={{ color: 'var(--gold)', fontFamily: "'Syne', sans-serif" }}>04</span>
               <h2 className="text-4xl md:text-6xl font-bold relative z-10 mb-4" style={{ fontFamily: "'Syne', sans-serif", color: 'var(--text)' }}>PROJECTS</h2>
               <p className="text-base md:text-lg" style={{ color: 'var(--text-dim)' }}>Selected work that ships real value</p>
             </div>
@@ -420,7 +435,7 @@ function Home() {
         <section ref={sectionRefs.contact} id="contact" className="min-h-screen flex items-center px-6 md:px-12 lg:px-24 py-20">
           <div className="max-w-2xl w-full">
             <div className="relative mb-12">
-              <span className="absolute -left-4 md:-left-12 top-0 text-8xl md:text-9xl font-bold opacity-15" style={{ color: 'var(--gold)', fontFamily: "'Syne', sans-serif" }}>04</span>
+              <span className="absolute -left-4 md:-left-12 top-0 text-8xl md:text-9xl font-bold opacity-15" style={{ color: 'var(--gold)', fontFamily: "'Syne', sans-serif" }}>05</span>
               <h2 className="text-4xl md:text-6xl font-bold relative z-10 mb-4" style={{ fontFamily: "'Syne', sans-serif", color: 'var(--text)' }}>CONTACT</h2>
               <p className="text-base md:text-lg" style={{ color: 'var(--text-dim)' }}>Let's build something together</p>
             </div>

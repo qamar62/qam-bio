@@ -1,33 +1,118 @@
 import React from 'react'
-import { FaHtml5, FaCss3, FaJs, FaReact, FaNode, FaDatabase, FaPython } from 'react-icons/fa'
+import { FaServer, FaRobot, FaCloud, FaCodeBranch, FaLaptopCode } from 'react-icons/fa'
+
+const groups = [
+  {
+    label: 'Backend & API',
+    icon: <FaServer />,
+    items: [
+      'Python',
+      'Django',
+      'Django REST Framework',
+      'REST API Design',
+      'PostgreSQL',
+      'Redis',
+      'Celery',
+      'Flask',
+      'Payment Gateways',
+    ],
+  },
+  {
+    label: 'AI Automation & Integration',
+    icon: <FaRobot />,
+    items: [
+      'LLM APIs',
+      'Voice AI (ElevenLabs)',
+      'n8n Workflows',
+      'Claude / ChatGPT',
+      'MCP / Tool-Calling',
+      'RAG-ready Systems',
+    ],
+  },
+  {
+    label: 'Cloud & Infrastructure',
+    icon: <FaCloud />,
+    items: [
+      'Proxmox',
+      'Docker',
+      'AWS (EC2 / S3)',
+      'Google Cloud',
+      'Linux Admin',
+      'Reverse Proxy / SSL',
+    ],
+  },
+  {
+    label: 'CI/CD & Code Quality',
+    icon: <FaCodeBranch />,
+    items: ['Jenkins', 'SonarQube', 'Nexus Registry', 'Git / GitHub', 'CI/CD Pipelines'],
+  },
+  {
+    label: 'Full-Stack & Frontend',
+    icon: <FaLaptopCode />,
+    items: ['Next.js', 'React', 'JavaScript', 'HTML / CSS', 'ntfy (Push)'],
+  },
+]
 
 const Skills = () => {
-  const skills = [
-    { name: 'HTML', icon: <FaHtml5 /> },
-    { name: 'CSS', icon: <FaCss3 /> },
-    { name: 'JavaScript', icon: <FaJs /> },
-    { name: 'React', icon: <FaReact /> },
-    { name: 'Node.js', icon: <FaNode /> },
-    { name: 'MongoDB', icon: <FaDatabase /> },
-    { name: 'Python', icon: <FaPython /> },
-    { name: 'React Native', icon: <FaReact /> },
-  ]
-
   return (
-    <div name="skills" className="w-full py-16">
-      <div className="max-w-[1000px] mx-auto p-4 flex flex-col justify-center w-full h-full">
-        <div>
-          <p className="text-4xl font-bold inline border-b-4 border-[#ff5e62] text-gray-800 dark:text-white">Skills</p>
-          <p className="py-4 text-gray-600 dark:text-gray-400">These are the technologies I've worked with</p>
-        </div>
-        <div className="w-full grid grid-cols-2 sm:grid-cols-4 gap-4 text-center py-8">
-          {skills.map((skill, index) => (
-            <div key={index} className="shadow-md hover:scale-105 duration-500 py-2 rounded-3xl bg-gradient-to-r from-[#ff9966] to-[#ff5e62] flex flex-col items-center justify-center">
-              <div className="text-4xl text-white mb-2">{skill.icon}</div>
-              <p className="text-white font-semibold">{skill.name}</p>
+    <div name="skills" className="w-full">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        {groups.map((group, index) => (
+          <div
+            key={index}
+            className="p-6 transition-all duration-300 hover:-translate-y-1"
+            style={{
+              background: 'var(--surface)',
+              border: '1px solid var(--border)',
+              borderRadius: '16px',
+            }}
+            onMouseEnter={(e) => (e.currentTarget.style.borderColor = 'var(--gold)')}
+            onMouseLeave={(e) => (e.currentTarget.style.borderColor = 'var(--border)')}
+          >
+            <div className="flex items-center gap-3 mb-4">
+              <span
+                className="flex h-9 w-9 items-center justify-center text-lg"
+                style={{
+                  background: 'var(--gold-dim)',
+                  color: 'var(--gold)',
+                  borderRadius: '10px',
+                }}
+              >
+                {group.icon}
+              </span>
+              <h3
+                className="text-base font-bold"
+                style={{ fontFamily: "'Syne', sans-serif", color: 'var(--text)' }}
+              >
+                {group.label}
+              </h3>
             </div>
-          ))}
-        </div>
+            <div className="flex flex-wrap gap-2">
+              {group.items.map((item, i) => (
+                <span
+                  key={i}
+                  className="px-3 py-1.5 text-xs transition-colors duration-200"
+                  style={{
+                    color: 'var(--text-dim)',
+                    border: '1px solid var(--border)',
+                    borderRadius: '8px',
+                    fontFamily: "'DM Mono', monospace",
+                  }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.color = 'var(--gold)'
+                    e.currentTarget.style.background = 'var(--gold-dim)'
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.color = 'var(--text-dim)'
+                    e.currentTarget.style.background = 'transparent'
+                  }}
+                >
+                  {item}
+                </span>
+              ))}
+            </div>
+          </div>
+        ))}
       </div>
     </div>
   )
