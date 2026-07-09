@@ -25,6 +25,59 @@ function Home() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [bioCardVisible, setBioCardVisible] = useState(false);
 
+  // Contact form state
+  const CONTACT_WEBHOOK = 'https://wflow.qaam.work/webhook/deb1ee16-9d1e-43c1-b1fb-e0096a493218';
+  const [form, setForm] = useState({ name: '', email: '', subject: '', message: '' });
+  const [formStatus, setFormStatus] = useState('idle'); // idle | sending | success | error
+  const [formError, setFormError] = useState('');
+
+  const handleFormChange = (e) => {
+    const { name, value } = e.target;
+    setForm((prev) => ({ ...prev, [name]: value }));
+    if (formStatus === 'error') { setFormStatus('idle'); setFormError(''); }
+  };
+
+  const handleFormSubmit = async (e) => {
+    e.preventDefault();
+    const name = form.name.trim();
+    const email = form.email.trim();
+    const message = form.message.trim();
+
+    if (!name || !email || !message) {
+      setFormStatus('error');
+      setFormError('Please fill in your name, email and message.');
+      return;
+    }
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      setFormStatus('error');
+      setFormError('Please enter a valid email address.');
+      return;
+    }
+
+    try {
+      setFormStatus('sending');
+      setFormError('');
+      const res = await fetch(CONTACT_WEBHOOK, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          name,
+          email,
+          subject: form.subject.trim() || 'Portfolio contact',
+          message,
+          source: 'qaam.work portfolio',
+          submittedAt: new Date().toISOString(),
+        }),
+      });
+      if (!res.ok) throw new Error(`HTTP ${res.status}`);
+      setFormStatus('success');
+      setForm({ name: '', email: '', subject: '', message: '' });
+    } catch (err) {
+      setFormStatus('error');
+      setFormError('Could not send right now. Please try again or email qam600@gmail.com.');
+    }
+  };
+
   const handleNavClick = (id) => {
     sectionRefs[id].current.scrollIntoView({ behavior: 'smooth', block: 'start' });
   };
@@ -440,15 +493,23 @@ function Home() {
               <p className="text-base md:text-lg" style={{ color: 'var(--text-dim)' }}>Let's build something together</p>
             </div>
 
-            <form className="space-y-8">
+            <form className="space-y-8" onSubmit={handleFormSubmit} noValidate>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                {['Name', 'Email'].map((label, idx) => (
-                  <div key={idx} className="relative group">
-                    <input 
-                      type={label === 'Email' ? 'email' : 'text'}
-                      placeholder={label}
-                      className="w-full bg-transparent pb-3 outline-none transition-all duration-300"
-                      style={{ 
+                {[
+                  { name: 'name', label: 'Name', type: 'text', autoComplete: 'name' },
+                  { name: 'email', label: 'Email', type: 'email', autoComplete: 'email' },
+                ].map((field) => (
+                  <div key={field.name} className="relative group">
+                    <input
+                      type={field.type}
+                      name={field.name}
+                      value={form[field.name]}
+                      onChange={handleFormChange}
+                      placeholder={field.label}
+                      autoComplete={field.autoComplete}
+                      disabled={formStatus === 'sending'}
+                      className="w-full bg-transparent pb-3 outline-none transition-all duration-300 disabled:opacity-50"
+                      style={{
                         borderBottom: '1px solid var(--border)',
                         color: 'var(--text)',
                         fontFamily: "'DM Mono', monospace"
@@ -460,11 +521,33 @@ function Home() {
                 ))}
               </div>
               <div className="relative group">
-                <textarea 
+                <input
+                  type="text"
+                  name="subject"
+                  value={form.subject}
+                  onChange={handleFormChange}
+                  placeholder="Subject (optional)"
+                  disabled={formStatus === 'sending'}
+                  className="w-full bg-transparent pb-3 outline-none transition-all duration-300 disabled:opacity-50"
+                  style={{
+                    borderBottom: '1px solid var(--border)',
+                    color: 'var(--text)',
+                    fontFamily: "'DM Mono', monospace"
+                  }}
+                  onFocus={(e) => e.target.style.borderBottom = '1px solid var(--gold)'}
+                  onBlur={(e) => e.target.style.borderBottom = '1px solid var(--border)'}
+                />
+              </div>
+              <div className="relative group">
+                <textarea
+                  name="message"
+                  value={form.message}
+                  onChange={handleFormChange}
                   placeholder="Message"
                   rows={4}
-                  className="w-full bg-transparent pb-3 outline-none resize-none transition-all duration-300"
-                  style={{ 
+                  disabled={formStatus === 'sending'}
+                  className="w-full bg-transparent pb-3 outline-none resize-none transition-all duration-300 disabled:opacity-50"
+                  style={{
                     borderBottom: '1px solid var(--border)',
                     color: 'var(--text)',
                     fontFamily: "'DM Mono', monospace"
@@ -473,16 +556,31 @@ function Home() {
                   onBlur={(e) => e.target.style.borderBottom = '1px solid var(--border)'}
                 ></textarea>
               </div>
-              <button 
+
+              {/* Status messages */}
+              {formStatus === 'error' && (
+                <p className="text-sm" style={{ color: '#ff6b6b', fontFamily: "'DM Mono', monospace" }}>
+                  {formError}
+                </p>
+              )}
+              {formStatus === 'success' && (
+                <p className="text-sm" style={{ color: 'var(--gold)', fontFamily: "'DM Mono', monospace" }}>
+                  ✓ Thanks — your message is on its way. I'll get back to you soon.
+                </p>
+              )}
+
+              <button
                 type="submit"
-                className="px-12 py-4 font-bold text-lg tracking-wide transition-all duration-300 relative overflow-hidden group"
-                style={{ 
+                disabled={formStatus === 'sending'}
+                className="px-12 py-4 font-bold text-lg tracking-wide transition-all duration-300 relative overflow-hidden group disabled:opacity-60 disabled:cursor-not-allowed"
+                style={{
                   border: '2px solid var(--gold)',
                   color: 'var(--gold)',
                   background: 'transparent',
                   fontFamily: "'Syne', sans-serif"
                 }}
                 onMouseEnter={(e) => {
+                  if (formStatus === 'sending') return;
                   e.currentTarget.style.background = 'var(--gold)';
                   e.currentTarget.style.color = 'var(--deep)';
                 }}
@@ -491,7 +589,7 @@ function Home() {
                   e.currentTarget.style.color = 'var(--gold)';
                 }}
               >
-                SEND MESSAGE
+                {formStatus === 'sending' ? 'SENDING…' : 'SEND MESSAGE'}
               </button>
             </form>
 
