@@ -5,30 +5,32 @@ const DigitalCard = () => {
   const cardData = {
     avatar: '/qam.jpg',
     name: 'Qamar Ibrahim',
-    title: 'Python Django Developer & DevOps Engineer',
+    title: 'Senior Python / Django Backend Engineer',
     bio: {
-      tagline: 'Full-Stack Developer & DevOps Expert',
+      tagline: 'Backend · AI Automation · DevOps',
       highlights: [
-        'Python & Django Specialist',
-        'AI Integration & Automation',
-        'Cloud Computing & DevOps',
-        'React & Modern Frontend',
-        'Docker & Containerization',
-        'Digital Marketing Solutions'
+        'Python, Django & DRF Specialist',
+        'REST APIs, PostgreSQL, Redis & Celery',
+        'AI Automation — LLM, Voice AI & n8n',
+        'Self-Hosted Infra — Proxmox & Docker',
+        'CI/CD — Jenkins, SonarQube & Nexus',
+        'Full-Stack Delivery with Next.js'
       ],
-      experience: '5+ Years Experience',
-      mission: 'Delivering high-impact digital solutions'
+      experience: '10+ Years Experience',
+      mission: 'Building production systems that cut manual work'
     },
     socials: {
       linkedin: 'https://linkedin.com/in/iamqam',
       github: 'https://github.com/qamar62',
       website: 'https://qaam.work',
-      instagram: 'https://instagram.com/qam600'
+      x: 'https://x.com/qamar62'
     },
-    phone: '+971-529733130',
+    phone: '+971529733130',
     email: 'qam600@gmail.com',
     website: 'https://qaam.work',
-    cardUrl: window.location.href,
+    org: 'Five Vertex Tourism',
+    location: 'Dubai, UAE',
+    cardUrl: typeof window !== 'undefined' ? window.location.href : 'https://qaam.work/qam-bio',
     qrCodeUrl: 'https://qaam.work/qam-bio',
   };
 

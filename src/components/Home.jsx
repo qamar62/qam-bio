@@ -1,5 +1,6 @@
 import React, { useRef, useState, useEffect } from 'react';
-import { FaSun, FaMoon, FaBars, FaTimes, FaGithub, FaLinkedin, FaTwitter } from 'react-icons/fa';
+import { Link } from 'react-router-dom';
+import { FaSun, FaMoon, FaBars, FaTimes, FaGithub, FaLinkedin, FaTwitter, FaAddressCard } from 'react-icons/fa';
 import { useScrollReveal } from '../hooks/useScrollReveal';
 import Projects from './Projects';
 import Skills from './Skills';
@@ -108,7 +109,7 @@ function Home() {
   return (
     <div className="flex min-h-screen" style={{ background: darkMode ? 'var(--deep)' : '#ffffff', color: darkMode ? 'var(--text)' : '#000000' }}>
       {/* Mobile menu button */}
-      <button 
+      <button
         onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
         className="fixed top-6 right-6 z-50 p-3 md:hidden"
         style={{ background: 'var(--surface)', color: 'var(--gold)' }}
@@ -122,7 +123,7 @@ function Home() {
         <div className="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none">
           <div className="absolute w-1 h-20 left-1/2 -translate-x-1/2 opacity-30" style={{ background: 'linear-gradient(180deg, transparent, var(--gold), transparent)', animation: 'scanline 8s linear infinite' }}></div>
         </div>
-        
+
         <button
           onClick={() => setDarkMode(!darkMode)}
           className="mb-12 w-3 h-3 rounded-full transition-all duration-300"
@@ -138,7 +139,7 @@ function Home() {
               className="relative group"
               aria-label={section.label}
             >
-              <div className="w-1 transition-all duration-300" style={{ 
+              <div className="w-1 transition-all duration-300" style={{
                 height: activeSection === section.id ? '32px' : '12px',
                 background: activeSection === section.id ? 'var(--gold)' : 'var(--text-dim)',
                 opacity: activeSection === section.id ? 1 : 0.4
@@ -163,7 +164,7 @@ function Home() {
               key={section.id}
               onClick={() => { handleNavClick(section.id); setMobileMenuOpen(false); }}
               className="text-left py-2 text-lg tracking-wider transition-colors"
-              style={{ 
+              style={{
                 color: activeSection === section.id ? 'var(--gold)' : 'var(--text-dim)',
                 fontFamily: "'Syne', sans-serif",
                 fontWeight: activeSection === section.id ? 700 : 400
@@ -187,9 +188,9 @@ function Home() {
 
       {/* Bio Card - Glass Morphism Modal */}
       <div className={`fixed inset-0 z-50 flex items-center justify-center p-4 transition-all duration-500 ${bioCardVisible ? 'opacity-100' : 'opacity-0 pointer-events-none'}`} style={{ background: 'rgba(0,0,0,0.92)' }} onClick={() => setBioCardVisible(false)}>
-        <div 
+        <div
           className="max-w-lg w-full overflow-hidden transition-all duration-700 relative"
-          style={{ 
+          style={{
             background: 'rgba(17,24,32,0.98)',
             backdropFilter: 'blur(30px)',
             border: '1px solid var(--border)',
@@ -200,7 +201,7 @@ function Home() {
           onClick={(e) => e.stopPropagation()}
         >
           {/* Animated Border Glow */}
-          <div className="absolute inset-0 rounded-3xl opacity-50 pointer-events-none" style={{ 
+          <div className="absolute inset-0 rounded-3xl opacity-50 pointer-events-none" style={{
             background: 'linear-gradient(135deg, transparent 0%, var(--gold-dim) 50%, transparent 100%)',
             filter: 'blur(20px)',
             animation: bioCardVisible ? 'shimmerSweep 3s ease-in-out infinite' : 'none'
@@ -209,21 +210,21 @@ function Home() {
           {/* Image Section with Gradient Overlay */}
           <div className="relative h-72 overflow-hidden">
             <img src="/qam.jpg" alt="Qamar Ibrahim" className="w-full h-full object-cover" style={{ filter: 'brightness(0.9) contrast(1.1)' }} />
-            <div className="absolute inset-0" style={{ 
-              background: 'linear-gradient(180deg, transparent 0%, rgba(10,15,20,0.4) 60%, rgba(10,15,20,0.95) 100%)' 
+            <div className="absolute inset-0" style={{
+              background: 'linear-gradient(180deg, transparent 0%, rgba(10,15,20,0.4) 60%, rgba(10,15,20,0.95) 100%)'
             }}></div>
-            
+
             {/* Floating Name Tag */}
             <div className="absolute bottom-6 left-6 right-6">
-              <h2 className="text-4xl font-bold mb-1 tracking-tight" style={{ 
-                fontFamily: "'Syne', sans-serif", 
+              <h2 className="text-4xl font-bold mb-1 tracking-tight" style={{
+                fontFamily: "'Syne', sans-serif",
                 color: 'var(--text)',
                 textShadow: '0 2px 10px rgba(0,0,0,0.5)'
               }}>Qamar Ibrahim</h2>
               <div className="flex items-center gap-2">
                 <div className="w-2 h-2 rounded-full animate-pulse" style={{ background: 'var(--gold)', boxShadow: '0 0 10px var(--gold)' }}></div>
-                <p className="text-sm tracking-wider uppercase" style={{ 
-                  color: 'var(--gold)', 
+                <p className="text-sm tracking-wider uppercase" style={{
+                  color: 'var(--gold)',
                   fontFamily: "'DM Mono', monospace",
                   letterSpacing: '0.1em'
                 }}>Available for Work</p>
@@ -235,17 +236,17 @@ function Home() {
           <div className="p-8 relative">
             {/* Role & Expertise */}
             <div className="mb-8">
-              <p className="text-lg mb-3" style={{ 
-                color: 'var(--text)', 
+              <p className="text-lg mb-3" style={{
+                color: 'var(--text)',
                 fontFamily: "'Syne', sans-serif",
                 fontWeight: 600
               }}>Senior Python / Django Backend Engineer</p>
               <div className="flex flex-wrap gap-2">
                 {['AI Automation', 'DevOps', 'DRF', 'Proxmox'].map((tag, idx) => (
-                  <span 
+                  <span
                     key={idx}
                     className="px-3 py-1 text-xs tracking-wide"
-                    style={{ 
+                    style={{
                       background: 'var(--gold-dim)',
                       color: 'var(--gold)',
                       fontFamily: "'DM Mono', monospace",
@@ -275,8 +276,8 @@ function Home() {
                   target="_blank"
                   rel="noopener noreferrer"
                   className="w-12 h-12 flex items-center justify-center transition-all duration-300 hover:scale-110 relative group"
-                  style={{ 
-                    border: '1px solid var(--border)', 
+                  style={{
+                    border: '1px solid var(--border)',
                     color: 'var(--text)',
                     borderRadius: '12px',
                     opacity: bioCardVisible ? 1 : 0,
@@ -284,15 +285,15 @@ function Home() {
                     transition: `all 0.5s cubic-bezier(0.16,1,0.3,1) ${0.3 + idx * 0.1}s`
                   }}
                   aria-label={social.label}
-                  onMouseEnter={(e) => { 
-                    e.currentTarget.style.background = 'var(--gold)'; 
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.background = 'var(--gold)';
                     e.currentTarget.style.borderColor = 'var(--gold)';
-                    e.currentTarget.style.color = 'var(--deep)'; 
+                    e.currentTarget.style.color = 'var(--deep)';
                   }}
-                  onMouseLeave={(e) => { 
-                    e.currentTarget.style.background = 'transparent'; 
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.background = 'transparent';
                     e.currentTarget.style.borderColor = 'var(--border)';
-                    e.currentTarget.style.color = 'var(--text)'; 
+                    e.currentTarget.style.color = 'var(--text)';
                   }}
                 >
                   {social.icon}
@@ -305,17 +306,17 @@ function Home() {
 
             {/* CTA Button with Gradient Border */}
             <div className="relative group">
-              <div className="absolute inset-0 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300" style={{ 
+              <div className="absolute inset-0 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300" style={{
                 background: 'linear-gradient(135deg, var(--gold), var(--gold-dim))',
                 filter: 'blur(8px)'
               }}></div>
-              <a 
-                href="/QAMcv.pdf" 
-                download 
+              <a
+                href="/QAMcv.pdf"
+                download
                 className="relative w-full py-4 flex items-center justify-center font-bold text-lg tracking-widest transition-all duration-300 overflow-hidden"
-                style={{ 
-                  background: 'var(--gold)', 
-                  color: 'var(--deep)', 
+                style={{
+                  background: 'var(--gold)',
+                  color: 'var(--deep)',
                   fontFamily: "'Syne', sans-serif",
                   borderRadius: '8px',
                   boxShadow: '0 4px 15px rgba(245,197,24,0.3)'
@@ -370,6 +371,24 @@ function Home() {
               </div>
             </h1>
 
+            {/* Save Contact / Digital Card link */}
+            <Link
+              to="/qam-bio"
+              className="inline-flex items-center gap-2 px-4 py-2 mb-8 text-sm tracking-wide transition-all duration-300"
+              style={{
+                border: '1px solid var(--gold)',
+                color: 'var(--gold)',
+                borderRadius: '999px',
+                fontFamily: "'DM Mono', monospace",
+                animation: 'fadeSlideUp 0.8s cubic-bezier(0.16,1,0.3,1) 0.7s both'
+              }}
+              onMouseEnter={(e) => { e.currentTarget.style.background = 'var(--gold)'; e.currentTarget.style.color = 'var(--deep)'; }}
+              onMouseLeave={(e) => { e.currentTarget.style.background = 'transparent'; e.currentTarget.style.color = 'var(--gold)'; }}
+            >
+              <FaAddressCard />
+              Save Contact
+            </Link>
+
             <div className="flex flex-wrap gap-3 mb-8 text-sm md:text-base" style={{ fontFamily: "'DM Mono', monospace", color: 'var(--text-dim)' }}>
               {['Senior Python / Django Engineer', 'AI Automation', 'DevOps'].map((word, idx, arr) => (
                 <span
@@ -420,7 +439,7 @@ function Home() {
                 <div
                   key={idx}
                   className="px-4 py-3 text-center text-sm font-medium transition-all duration-300 cursor-default group overflow-hidden relative"
-                  style={{ 
+                  style={{
                     border: '1px solid var(--border)',
                     color: 'var(--gold)',
                     fontFamily: "'DM Mono', monospace",

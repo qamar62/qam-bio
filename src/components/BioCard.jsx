@@ -27,6 +27,8 @@ const BioCard = ({
   phone = "+971529733130",
   email = "qam600@gmail.com",
   website = "https://qaam.work",
+  org = "",
+  location = "",
   cardUrl = window.location.href,
   qrCodeUrl = "https://qaam.work/qam-bio",
 }) => {
@@ -40,13 +42,16 @@ const BioCard = ({
     "BEGIN:VCARD",
     "VERSION:3.0",
     `FN:${name}`,
-    `EMAIL;TYPE=INTERNET:qam600@gmail.com`,
+    `EMAIL;TYPE=INTERNET:${email}`,
     `TITLE:${title}`,
-    `TEL;TYPE=CELL,VOICE,WORK:+971529733130`,
-    `URL;TYPE=WORK:https://qaam.work`,
+    org ? `ORG:${org}` : null,
+    `TEL;TYPE=CELL,VOICE,WORK:${phone}`,
+    `URL;TYPE=WORK:${website}`,
+    location ? `ADR;TYPE=WORK:;;${location};;;;` : null,
+    Object.values(socials || {}).map((u) => `URL:${u}`).join("\n"),
     `NOTE:${bioText}`,
     "END:VCARD"
-  ].join("\n");
+  ].filter(Boolean).join("\n");
 
   // Download vCard
   const downloadVCard = () => {
@@ -124,10 +129,18 @@ const BioCard = ({
         />
       </svg>
     ),
+    x: (
+      <svg width="22" height="22" viewBox="0 0 24 24">
+        <path
+          d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24h-6.66l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"
+          fill={isHovering === 'x' ? "#ffffff" : "currentColor"}
+        />
+      </svg>
+    ),
     phone: (
       <svg width="24" height="24" viewBox="0 0 24 24">
-        <path 
-          d="M20 15.5c-1.25 0-2.45-.2-3.57-.57a1.02 1.02 0 0 0-1.02.24l-2.2 2.2a15.074 15.074 0 0 1-6.59-6.58l2.2-2.21c.28-.27.36-.66.25-1.01A11.36 11.36 0 0 1 8.5 4c0-.55-.45-1-1-1H4c-.55 0-1 .45-1 1 0 9.39 7.61 17 17 17 .55 0 1-.45 1-1v-3.5c0-.55-.45-1-1-1z" 
+        <path
+          d="M20 15.5c-1.25 0-2.45-.2-3.57-.57a1.02 1.02 0 0 0-1.02.24l-2.2 2.2a15.074 15.074 0 0 1-6.59-6.58l2.2-2.21c.28-.27.36-.66.25-1.01A11.36 11.36 0 0 1 8.5 4c0-.55-.45-1-1-1H4c-.55 0-1 .45-1 1 0 9.39 7.61 17 17 17 .55 0 1-.45 1-1v-3.5c0-.55-.45-1-1-1z"
           fill={isHovering === 'phone' ? "#34B7F1" : "currentColor"}
         />
       </svg>
