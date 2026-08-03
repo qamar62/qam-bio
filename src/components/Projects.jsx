@@ -8,9 +8,15 @@ import {
   FaMicrophoneAlt,
   FaExternalLinkAlt,
   FaLock,
+  FaWordpress,
+  FaCouch,
+  FaWrench,
+  FaHome,
+  FaCut,
+  FaServer,
 } from 'react-icons/fa'
 
-const projects = [
+const djangoProjects = [
   {
     title: 'Five Tours — Booking Platform',
     category: 'Travel · Flagship',
@@ -79,121 +85,223 @@ const projects = [
   },
 ]
 
-const Projects = () => {
+const wordpressProjects = [
+  {
+    title: 'Home Interiors — Carpets, Sofas & Beds',
+    category: 'Custom Theme',
+    description:
+      'Custom-built WordPress theme for a home furnishing brand — carpets, sofas and beds — with a bespoke catalogue layout and enquiry flow.',
+    tech: ['WordPress', 'Custom Theme', 'PHP', 'Responsive'],
+    icon: <FaCouch />,
+    accent: ['#21759B', '#0F4C63'],
+    link: 'https://home.qaam.work',
+    linkLabel: 'Visit site',
+  },
+  {
+    title: 'Plumbing & Electrical Services',
+    category: 'Custom Theme',
+    description:
+      'Custom WordPress theme for an electrician & plumbing services company — service pages, booking call-to-actions and local SEO structure.',
+    tech: ['WordPress', 'Custom Theme', 'PHP', 'SEO'],
+    icon: <FaWrench />,
+    accent: ['#48BB78', '#22683F'],
+    link: 'https://plumber.qaam.work',
+    linkLabel: 'Visit site',
+  },
+  {
+    title: 'Real Estate & Property Listings',
+    category: 'Custom Theme',
+    description:
+      'Property listings WordPress site with search, filtering and agent profiles — custom theme and template design.',
+    tech: ['WordPress', 'Custom Theme', 'Elementor'],
+    icon: <FaHome />,
+    accent: ['#4299E1', '#2A4E7C'],
+    link: 'https://realestate.qaam.work',
+    linkLabel: 'Visit site',
+  },
+  {
+    title: 'Restaurant & Cafe',
+    category: 'Custom Theme',
+    description:
+      'Restaurant WordPress theme with menu, reservations and gallery — mobile-first design and fast page loads.',
+    tech: ['WordPress', 'Custom Theme', 'WooCommerce'],
+    icon: <FaUtensils />,
+    accent: ['#ED8936', '#9C4221'],
+    link: 'https://dine.qaam.work',
+    linkLabel: 'Visit site',
+  },
+  {
+    title: 'Beauty & Salon',
+    category: 'Custom Theme',
+    description:
+      'Salon & spa WordPress site with service listings, online booking and a styled gallery — custom theme build.',
+    tech: ['WordPress', 'Custom Theme', 'Booking'],
+    icon: <FaCut />,
+    accent: ['#ED64A6', '#8B2C63'],
+    link: 'https://salon.qaam.work',
+    linkLabel: 'Visit site',
+  },
+]
+
+const ProjectCard = ({ project }) => {
+  const hasLink = Boolean(project.link)
   return (
-    <div name="projects" className="w-full">
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-        {projects.map((project, index) => {
-          const hasLink = Boolean(project.link)
-          return (
-            <div
-              key={index}
-              className="group relative flex flex-col overflow-hidden transition-all duration-300 hover:-translate-y-1.5"
+    <div
+      className="group relative flex flex-col overflow-hidden transition-all duration-300 hover:-translate-y-1.5"
+      style={{
+        background: 'var(--surface)',
+        border: '1px solid var(--border)',
+        borderRadius: '18px',
+      }}
+      onMouseEnter={(e) => {
+        e.currentTarget.style.boxShadow = `0 18px 40px -18px ${project.accent[0]}55`
+        e.currentTarget.style.borderColor = project.accent[0]
+      }}
+      onMouseLeave={(e) => {
+        e.currentTarget.style.boxShadow = 'none'
+        e.currentTarget.style.borderColor = 'var(--border)'
+      }}
+    >
+      {/* Icon / accent band */}
+      <div
+        className="relative h-28 flex items-center justify-center overflow-hidden"
+        style={{
+          background: `linear-gradient(135deg, ${project.accent[0]}22 0%, ${project.accent[1]}11 100%)`,
+        }}
+      >
+        <div
+          className="absolute inset-0 opacity-40"
+          style={{
+            backgroundImage:
+              'radial-gradient(circle at 20% 20%, rgba(255,255,255,0.06) 0, transparent 40%)',
+          }}
+        />
+        <div
+          className="text-4xl transition-transform duration-300 group-hover:scale-110"
+          style={{ color: project.accent[0] }}
+        >
+          {project.icon}
+        </div>
+        <span
+          className="absolute top-3 left-4 text-[11px] tracking-widest uppercase"
+          style={{
+            color: project.accent[0],
+            fontFamily: "'DM Mono', monospace",
+            letterSpacing: '0.12em',
+          }}
+        >
+          {project.category}
+        </span>
+      </div>
+
+      {/* Body */}
+      <div className="flex flex-1 flex-col p-6">
+        <h3
+          className="text-lg font-bold mb-2"
+          style={{ fontFamily: "'Syne', sans-serif", color: 'var(--text)' }}
+        >
+          {project.title}
+        </h3>
+        <p className="text-sm leading-relaxed mb-4 flex-1" style={{ color: 'var(--text-dim)' }}>
+          {project.description}
+        </p>
+
+        {/* Tech tags */}
+        <div className="flex flex-wrap gap-2 mb-5">
+          {project.tech.map((t, i) => (
+            <span
+              key={i}
+              className="px-2.5 py-1 text-[11px]"
               style={{
-                background: 'var(--surface)',
+                background: 'var(--gold-dim)',
+                color: 'var(--gold)',
                 border: '1px solid var(--border)',
-                borderRadius: '18px',
-              }}
-              onMouseEnter={(e) => {
-                e.currentTarget.style.boxShadow = `0 18px 40px -18px ${project.accent[0]}55`
-                e.currentTarget.style.borderColor = project.accent[0]
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.boxShadow = 'none'
-                e.currentTarget.style.borderColor = 'var(--border)'
+                borderRadius: '6px',
+                fontFamily: "'DM Mono', monospace",
               }}
             >
-              {/* Icon / accent band */}
-              <div
-                className="relative h-28 flex items-center justify-center overflow-hidden"
-                style={{
-                  background: `linear-gradient(135deg, ${project.accent[0]}22 0%, ${project.accent[1]}11 100%)`,
-                }}
-              >
-                <div
-                  className="absolute inset-0 opacity-40"
-                  style={{
-                    backgroundImage:
-                      'radial-gradient(circle at 20% 20%, rgba(255,255,255,0.06) 0, transparent 40%)',
-                  }}
-                />
-                <div
-                  className="text-4xl transition-transform duration-300 group-hover:scale-110"
-                  style={{ color: project.accent[0] }}
-                >
-                  {project.icon}
-                </div>
-                <span
-                  className="absolute top-3 left-4 text-[11px] tracking-widest uppercase"
-                  style={{
-                    color: project.accent[0],
-                    fontFamily: "'DM Mono', monospace",
-                    letterSpacing: '0.12em',
-                  }}
-                >
-                  {project.category}
-                </span>
-              </div>
+              {t}
+            </span>
+          ))}
+        </div>
 
-              {/* Body */}
-              <div className="flex flex-1 flex-col p-6">
-                <h3
-                  className="text-lg font-bold mb-2"
-                  style={{ fontFamily: "'Syne', sans-serif", color: 'var(--text)' }}
-                >
-                  {project.title}
-                </h3>
-                <p
-                  className="text-sm leading-relaxed mb-4 flex-1"
-                  style={{ color: 'var(--text-dim)' }}
-                >
-                  {project.description}
-                </p>
+        {/* Link */}
+        {hasLink ? (
+          <a
+            href={project.link}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-2 text-sm font-semibold transition-all duration-300 self-start"
+            style={{ color: project.accent[0], fontFamily: "'DM Mono', monospace" }}
+          >
+            {project.linkLabel}
+            <FaExternalLinkAlt className="text-xs transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+          </a>
+        ) : (
+          <span
+            className="inline-flex items-center gap-2 text-sm self-start"
+            style={{ color: 'var(--text-dim)', fontFamily: "'DM Mono', monospace" }}
+          >
+            <FaLock className="text-xs" />
+            {project.linkLabel}
+          </span>
+        )}
+      </div>
+    </div>
+  )
+}
 
-                {/* Tech tags */}
-                <div className="flex flex-wrap gap-2 mb-5">
-                  {project.tech.map((t, i) => (
-                    <span
-                      key={i}
-                      className="px-2.5 py-1 text-[11px]"
-                      style={{
-                        background: 'var(--gold-dim)',
-                        color: 'var(--gold)',
-                        border: '1px solid var(--border)',
-                        borderRadius: '6px',
-                        fontFamily: "'DM Mono', monospace",
-                      }}
-                    >
-                      {t}
-                    </span>
-                  ))}
-                </div>
+const GroupHeader = ({ icon, title, subtitle }) => (
+  <div className="flex items-center gap-3 mb-6">
+    <span
+      className="flex h-10 w-10 items-center justify-center text-xl"
+      style={{ background: 'var(--gold-dim)', color: 'var(--gold)', borderRadius: '12px' }}
+    >
+      {icon}
+    </span>
+    <div>
+      <h3
+        className="text-xl font-bold leading-tight"
+        style={{ fontFamily: "'Syne', sans-serif", color: 'var(--text)' }}
+      >
+        {title}
+      </h3>
+      <p className="text-xs" style={{ color: 'var(--text-dim)', fontFamily: "'DM Mono', monospace" }}>
+        {subtitle}
+      </p>
+    </div>
+  </div>
+)
 
-                {/* Link */}
-                {hasLink ? (
-                  <a
-                    href={project.link}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center gap-2 text-sm font-semibold transition-all duration-300 self-start"
-                    style={{ color: project.accent[0], fontFamily: "'DM Mono', monospace" }}
-                  >
-                    {project.linkLabel}
-                    <FaExternalLinkAlt className="text-xs transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-                  </a>
-                ) : (
-                  <span
-                    className="inline-flex items-center gap-2 text-sm self-start"
-                    style={{ color: 'var(--text-dim)', fontFamily: "'DM Mono', monospace" }}
-                  >
-                    <FaLock className="text-xs" />
-                    {project.linkLabel}
-                  </span>
-                )}
-              </div>
-            </div>
-          )
-        })}
+const Projects = () => {
+  return (
+    <div name="projects" className="w-full space-y-16">
+      {/* Django / Full-Stack */}
+      <div>
+        <GroupHeader
+          icon={<FaServer />}
+          title="Django & Full-Stack Applications"
+          subtitle="Production backends, APIs & platforms"
+        />
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          {djangoProjects.map((project, index) => (
+            <ProjectCard key={index} project={project} />
+          ))}
+        </div>
+      </div>
+
+      {/* WordPress */}
+      <div>
+        <GroupHeader
+          icon={<FaWordpress />}
+          title="WordPress — Custom Themes & Sites"
+          subtitle="Hand-built themes, no page-builder bloat"
+        />
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          {wordpressProjects.map((project, index) => (
+            <ProjectCard key={index} project={project} />
+          ))}
+        </div>
       </div>
     </div>
   )
