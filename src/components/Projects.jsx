@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import {
   FaPlane,
   FaGlobe,
@@ -15,6 +15,8 @@ import {
   FaCut,
   FaServer,
 } from 'react-icons/fa'
+
+const PLACEHOLDER = '/placeholder.svg'
 
 const djangoProjects = [
   {
@@ -162,36 +164,50 @@ const ProjectCard = ({ project }) => {
         e.currentTarget.style.borderColor = 'var(--border)'
       }}
     >
-      {/* Icon / accent band */}
+      {/* Image or icon / accent band */}
       <div
         className="relative h-28 flex items-center justify-center overflow-hidden"
         style={{
           background: `linear-gradient(135deg, ${project.accent[0]}22 0%, ${project.accent[1]}11 100%)`,
         }}
       >
-        <div
-          className="absolute inset-0 opacity-40"
-          style={{
-            backgroundImage:
-              'radial-gradient(circle at 20% 20%, rgba(255,255,255,0.06) 0, transparent 40%)',
-          }}
-        />
-        <div
-          className="text-4xl transition-transform duration-300 group-hover:scale-110"
-          style={{ color: project.accent[0] }}
-        >
-          {project.icon}
-        </div>
-        <span
-          className="absolute top-3 left-4 text-[11px] tracking-widest uppercase"
-          style={{
-            color: project.accent[0],
-            fontFamily: "'DM Mono', monospace",
-            letterSpacing: '0.12em',
-          }}
-        >
-          {project.category}
-        </span>
+        {project.image ? (
+          <img
+            src={project.image}
+            alt={project.title}
+            className="absolute inset-0 w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+            onError={(e) => { e.currentTarget.src = PLACEHOLDER }}
+          />
+        ) : (
+          <>
+            <div
+              className="absolute inset-0 opacity-40"
+              style={{
+                backgroundImage:
+                  'radial-gradient(circle at 20% 20%, rgba(255,255,255,0.06) 0, transparent 40%)',
+              }}
+            />
+            <div
+              className="text-4xl transition-transform duration-300 group-hover:scale-110"
+              style={{ color: project.accent[0] }}
+            >
+              {project.icon}
+            </div>
+          </>
+        )}
+        {project.category && (
+          <span
+            className="absolute top-3 left-4 text-[11px] tracking-widest uppercase px-2 py-0.5 rounded"
+            style={{
+              color: project.accent[0],
+              background: project.image ? 'rgba(10,15,20,0.7)' : 'transparent',
+              fontFamily: "'DM Mono', monospace",
+              letterSpacing: '0.12em',
+            }}
+          >
+            {project.category}
+          </span>
+        )}
       </div>
 
       {/* Body */}
@@ -273,7 +289,44 @@ const GroupHeader = ({ icon, title, subtitle }) => (
   </div>
 )
 
+// Normalize an admin-added project into the shape ProjectCard expects
+const normalizeDynamic = (p) => {
+  const isWp = p.type === 'wordpress'
+  const accent = isWp ? ['#21759B', '#0F4C63'] : ['#F5C518', '#E08A00']
+  const tech = Array.isArray(p.tech) ? p.tech : String(p.tech || '').split(',').map((t) => t.trim()).filter(Boolean)
+  return {
+    title: p.title,
+    category: p.category || (isWp ? 'WordPress' : 'Project'),
+    description: p.description || '',
+    tech,
+    image: p.image || '',
+    icon: isWp ? <FaWordpress /> : <FaServer />,
+    accent,
+    link: p.url || '',
+    linkLabel: p.url ? 'Visit site' : 'Coming soon',
+  }
+}
+
 const Projects = () => {
+  const [dynamic, setDynamic] = useState([])
+
+  useEffect(() => {
+    let active = true
+    fetch('/api/projects', { cache: 'no-store' })
+      .then((r) => (r.ok ? r.json() : []))
+      .then((data) => {
+        if (active && Array.isArray(data)) setDynamic(data)
+      })
+      .catch(() => {})
+    return () => { active = false }
+  }, [])
+
+  const dynDjango = dynamic.filter((p) => p.type !== 'wordpress').map(normalizeDynamic)
+  const dynWordpress = dynamic.filter((p) => p.type === 'wordpress').map(normalizeDynamic)
+
+  const djangoAll = [...djangoProjects, ...dynDjango]
+  const wordpressAll = [...wordpressProjects, ...dynWordpress]
+
   return (
     <div name="projects" className="w-full space-y-16">
       {/* Django / Full-Stack */}
@@ -284,7 +337,7 @@ const Projects = () => {
           subtitle="Production backends, APIs & platforms"
         />
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          {djangoProjects.map((project, index) => (
+          {djangoAll.map((project, index) => (
             <ProjectCard key={index} project={project} />
           ))}
         </div>
@@ -298,7 +351,7 @@ const Projects = () => {
           subtitle="Hand-built themes, no page-builder bloat"
         />
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          {wordpressProjects.map((project, index) => (
+          {wordpressAll.map((project, index) => (
             <ProjectCard key={index} project={project} />
           ))}
         </div>
