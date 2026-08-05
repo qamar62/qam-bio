@@ -85,6 +85,17 @@ const djangoProjects = [
     link: '',
     linkLabel: 'Internal',
   },
+  {
+    title: 'Luxury Carpet ( Frontend )',
+    category: 'Frontend',
+    description:
+      'Luxury carpet for Dubai market with Ai chat system using Gemini API.',
+    tech: ['Next.js', 'React.js', 'Gemini API'],
+    icon: <FaMicrophoneAlt />,
+    accent: ['#5e3b0dff', '#0d985eff'],
+    link: 'https://carpet-dusky.vercel.app',
+    linkLabel: 'Visit site',
+  },
 ]
 
 const wordpressProjects = [
@@ -317,7 +328,7 @@ const Projects = () => {
       .then((data) => {
         if (active && Array.isArray(data)) setDynamic(data)
       })
-      .catch(() => {})
+      .catch(() => { })
     return () => { active = false }
   }, [])
 
