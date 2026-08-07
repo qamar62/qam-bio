@@ -1,26 +1,29 @@
-# Use an official Node runtime as the parent image
-FROM node:14
-
-# Set the working directory in the container
+# --- deps ---
+FROM node:22-alpine AS deps
 WORKDIR /app
+COPY package.json package-lock.json* ./
+RUN npm ci
 
-# Copy package.json and package-lock.json
-COPY package*.json ./
-
-# Install project dependencies
-RUN npm install
-
-# Copy project files into the docker image
+# --- build ---
+FROM node:22-alpine AS builder
+WORKDIR /app
+COPY --from=deps /app/node_modules ./node_modules
 COPY . .
-
-# Build the app
+ENV NEXT_TELEMETRY_DISABLED=1
 RUN npm run build
 
-# Install serve to run the application
-RUN npm install -g serve
+# --- runtime ---
+FROM node:22-alpine AS runner
+WORKDIR /app
+ENV NODE_ENV=production
+ENV NEXT_TELEMETRY_DISABLED=1
+RUN addgroup -g 1001 -S nodejs && adduser -S nextjs -u 1001
 
-# Set the command to start the node server
-CMD ["serve", "-s", "dist", "-l", "3000"]
+COPY --from=builder /app/public ./public
+COPY --from=builder --chown=nextjs:nodejs /app/.next/standalone ./
+COPY --from=builder --chown=nextjs:nodejs /app/.next/static ./.next/static
 
-# Expose port 3000
+USER nextjs
 EXPOSE 3000
+ENV PORT=3000 HOSTNAME=0.0.0.0
+CMD ["node", "server.js"]

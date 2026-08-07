@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 450" width="800" height="450">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#111820"/>
+      <stop offset="1" stop-color="#0A0F14"/>
+    </linearGradient>
+  </defs>
+  <rect width="800" height="450" fill="url(#bg)"/>
+  <g fill="none" stroke="#F5C518" stroke-opacity="0.35" stroke-width="2">
+    <rect x="300" y="150" width="200" height="150" rx="12"/>
+    <path d="M300 250 l55 -55 45 40 55 -60 45 40"/>
+  </g>
+  <circle cx="360" cy="195" r="16" fill="#F5C518" fill-opacity="0.5"/>
+  <text x="400" y="360" text-anchor="middle" font-family="DM Mono, monospace" font-size="22" fill="#6B7A8D" letter-spacing="2">PROJECT PREVIEW</text>
+</svg>
