@@ -74,7 +74,7 @@ Content lives in `data/`, not in JSX. To change what the site says, edit the dat
 
 **Vercel** — import the repo, add `ADMIN_PASSWORD`, link a Blob store, deploy. No `vercel.json` needed.
 
-**Docker / self-hosted** — the build emits `.next/standalone` (`output: 'standalone'` in `next.config.mjs`):
+**Docker / self-hosted** — outside Vercel the build emits `.next/standalone` (see the conditional `output` in `next.config.mjs`; Vercel's pipeline needs the default output instead):
 
 ```bash
 docker build -t qam-bio .

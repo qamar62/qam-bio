@@ -1,7 +1,9 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  // Emits .next/standalone for self-hosted Docker deploys. Ignored on Vercel.
-  output: 'standalone',
+  // Standalone output is for self-hosted Docker deploys only. Vercel's build
+  // pipeline expects the default output and fails on the missing .nft.json
+  // trace files, so leave it off there.
+  output: process.env.VERCEL ? undefined : 'standalone',
   images: {
     unoptimized: true,
   },
