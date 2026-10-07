@@ -106,6 +106,30 @@ export const projects: Project[] = [
     group: 'fullstack',
     liveUrl: 'https://carpet-dusky.vercel.app',
   },
+  {
+    id: 'fleet-pulse',
+    name: 'Fleet Management System',
+    category: 'Frontend · AI Chat',
+    description:
+      'Fleet pulse is a fleet management system for all drivers and Uber, Yango, etc magement .',
+    tech: ['Next.js', 'React', 'Gemini API', 'Django'],
+    icon: 'Layers',
+    accent: ['#1900f9', '#00ff95'],
+    group: 'fullstack',
+    liveUrl: 'https://fp.qaam.work',
+  },
+  {
+    id: 'dhow-cruise',
+    name: 'Dhow cruise',
+    category: 'Frontend · AI Chat',
+    description:
+      'Dhow cruise websiste with booking system build in Next.js with enahnced SEO and AEO system',
+    tech: ['Next.js', 'React', 'Gemini API'],
+    icon: 'Layers',
+    accent: ['#087897', '#b36d38'],
+    group: 'fullstack',
+    liveUrl: 'https://dhow-cruise.vercel.app',
+  },
 
   // ── WordPress — Custom Themes ──────────────────────────────────────────
   {
@@ -167,6 +191,18 @@ export const projects: Project[] = [
     accent: ['#ED64A6', '#8B2C63'],
     group: 'wordpress',
     liveUrl: 'https://salon.qaam.work',
+  },
+  {
+    id: 'wp-sports',
+    name: 'Sports & Fitness',
+    category: 'Custom Theme',
+    description:
+      'Sports & fitness WordPress site with service listings, online booking and a styled gallery — custom theme build.',
+    tech: ['WordPress', 'Custom Theme', 'Booking'],
+    icon: 'Scissors',
+    accent: ['#012664', '#efb106'],
+    group: 'wordpress',
+    liveUrl: 'https://ehuhstars.com',
   },
 ]
 
