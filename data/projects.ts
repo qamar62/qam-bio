@@ -63,11 +63,23 @@ export const projects: Project[] = [
     category: 'Restaurant',
     description:
       'Restaurant platform with menu management, online ordering and an operations backend built on Django.',
-    tech: ['Django', 'PostgreSQL', 'REST API'],
+    tech: ['Django', 'PostgreSQL', 'REST API', 'Next.js','Stripe'],
     icon: 'UtensilsCrossed',
-    accent: ['#F6AD55', '#C05621'],
+    accent: ['#123937', '#dfdfdf'],
     group: 'fullstack',
     liveUrl: 'https://khanz.qaam.work',
+  },
+  {
+    id: 'bucther',
+    name: 'Butcher Ecommerce Website',
+    category: 'Ecommerce',
+    description:
+      'Butcher ecommerce website with next.js frontend and stripe payment gateway.',
+    tech: ['Django', 'PostgreSQL', 'REST API', 'Next.js'],
+    icon: 'UtensilsCrossed',
+    accent: ['#ac0404', '#eeeeee'],
+    group: 'fullstack',
+    liveUrl: 'https://butcher.qaam.work',
   },
   {
     id: 'property-management',
