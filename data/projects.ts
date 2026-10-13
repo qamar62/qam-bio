@@ -58,8 +58,8 @@ export const projects: Project[] = [
     liveUrl: 'https://fmsportz.com',
   },
   {
-    id: 'khanz-restaurant',
-    name: 'Khanz Restaurant',
+    id: 'restaurant',
+    name: 'Restaurant',
     category: 'Restaurant',
     description:
       'Restaurant platform with menu management, online ordering and an operations backend built on Django.',
@@ -67,7 +67,7 @@ export const projects: Project[] = [
     icon: 'UtensilsCrossed',
     accent: ['#123937', '#dfdfdf'],
     group: 'fullstack',
-    liveUrl: 'https://khanz.qaam.work',
+    liveUrl: '',
   },
   {
     id: 'bucther',
@@ -79,7 +79,7 @@ export const projects: Project[] = [
     icon: 'UtensilsCrossed',
     accent: ['#ac0404', '#eeeeee'],
     group: 'fullstack',
-    liveUrl: 'https://butcher.qaam.work',
+    liveUrl: '',
   },
   {
     id: 'property-management',
