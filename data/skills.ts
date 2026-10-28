@@ -12,7 +12,7 @@ export const skillCategories: SkillCategory[] = [
     description: 'LLM integration, voice AI and workflow automation in production.',
     skills: [
       'LLM APIs',
-      'Voice AI (ElevenLabs)',
+      'Voice AI (Pipecat, Whisper, Kokoro TTS)',
       'n8n Workflows',
       'Claude / ChatGPT',
       'MCP / Tool-Calling',

@@ -95,11 +95,11 @@ export const projects: Project[] = [
   },
   {
     id: 'ai-voice-assistant',
-    name: 'Multilingual AI Voice Assistant',
+    name: 'Fiva — Multilingual AI Voice Assistant',
     category: 'AI · Self-Hosted',
     description:
-      'Real-time, multilingual conversational voice bot for booking and support — ElevenLabs TTS + LLM APIs wired to backend booking logic on self-hosted infrastructure.',
-    tech: ['Python', 'LLM APIs', 'ElevenLabs', 'DRF', 'Proxmox'],
+      'Live at voice.five.tours — real-time voice assistant for booking and customer enquiries in English, Arabic, Russian, Spanish and Portuguese. Pipecat, faster-whisper, the Claude API and Kokoro TTS, wired to backend booking logic on self-hosted infrastructure.',
+    tech: ['Python', 'Pipecat', 'Whisper', 'Claude API', 'Kokoro TTS', 'DRF', 'Proxmox'],
     icon: 'Mic',
     accent: ['#F687B3', '#B83280'],
     group: 'fullstack',

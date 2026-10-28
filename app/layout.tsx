@@ -22,13 +22,13 @@ const SITE_URL = profile.website
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: {
-    default: 'Qamar Ibrahim | Senior Python / Django Backend Engineer',
-    template: '%s | Qamar Ibrahim',
+    default: 'Qamar Shahzad | Senior Python / Django Backend Engineer',
+    template: '%s | Qamar Shahzad',
   },
   description:
-    'Qamar Ibrahim is a Senior Python / Django backend engineer with 10+ years building REST APIs, AI automation, voice assistants and self-hosted infrastructure.',
+    'Qamar Shahzad is a Senior Python / Django backend engineer with 5+ years of hands-on Python / Django experience building REST APIs, AI automation, voice assistants and self-hosted infrastructure.',
   keywords: [
-    'Qamar Ibrahim',
+    'Qamar Shahzad',
     'Python Django Developer',
     'Backend Engineer',
     'Django REST Framework',
@@ -46,8 +46,8 @@ export const metadata: Metadata = {
     'Proxmox',
     'Dubai',
   ],
-  authors: [{ name: 'Qamar Ibrahim', url: SITE_URL }],
-  creator: 'Qamar Ibrahim',
+  authors: [{ name: 'Qamar Shahzad', url: SITE_URL }],
+  creator: 'Qamar Shahzad',
   alternates: {
     canonical: SITE_URL,
   },
@@ -55,14 +55,14 @@ export const metadata: Metadata = {
     type: 'website',
     locale: 'en_US',
     url: SITE_URL,
-    siteName: 'Qamar Ibrahim',
-    title: 'Qamar Ibrahim | Senior Python / Django Backend Engineer',
+    siteName: 'Qamar Shahzad',
+    title: 'Qamar Shahzad | Senior Python / Django Backend Engineer',
     description:
       'Production backends, AI automation systems, scalable REST APIs and self-hosted infrastructure — built and operated end to end.',
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Qamar Ibrahim | Senior Python / Django Backend Engineer',
+    title: 'Qamar Shahzad | Senior Python / Django Backend Engineer',
     description:
       'Production backends, AI automation, scalable REST APIs and self-hosted infrastructure.',
     creator: '@qamar62',
@@ -87,7 +87,7 @@ const jsonLd = {
     {
       '@type': 'Person',
       '@id': `${SITE_URL}/#person`,
-      name: 'Qamar Ibrahim',
+      name: 'Qamar Shahzad',
       url: SITE_URL,
       jobTitle: 'Senior Python / Django Backend Engineer',
       email: 'mailto:qam600@gmail.com',
@@ -99,7 +99,7 @@ const jsonLd = {
       },
       worksFor: { '@type': 'Organization', name: 'Five Vertex Tourism' },
       description:
-        'Senior Python / Django backend engineer with 10+ years building REST APIs, AI automation, voice assistants and self-hosted infrastructure.',
+        'Senior Python / Django backend engineer with 5+ years of hands-on Python / Django experience building REST APIs, AI automation, voice assistants and self-hosted infrastructure.',
       knowsAbout: [
         'Python',
         'Django',
@@ -127,13 +127,13 @@ const jsonLd = {
       '@type': 'WebSite',
       '@id': `${SITE_URL}/#website`,
       url: SITE_URL,
-      name: 'Qamar Ibrahim — Senior Python / Django Backend Engineer',
+      name: 'Qamar Shahzad — Senior Python / Django Backend Engineer',
       publisher: { '@id': `${SITE_URL}/#person` },
       inLanguage: 'en-US',
     },
     {
       '@type': 'ProfessionalService',
-      name: 'Qamar Ibrahim — Backend & AI Automation Engineering',
+      name: 'Qamar Shahzad — Backend & AI Automation Engineering',
       url: SITE_URL,
       description:
         'Django backends, REST APIs, AI automation, self-hosted infrastructure and custom WordPress builds.',

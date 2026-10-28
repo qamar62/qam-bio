@@ -30,7 +30,7 @@ const capabilities = [
   'RAG-ready Systems',
   'MCP / Tool-Calling',
   'Claude / ChatGPT',
-  'ElevenLabs',
+  'Pipecat / Kokoro TTS',
   'n8n',
   'APIs',
   'Databases',

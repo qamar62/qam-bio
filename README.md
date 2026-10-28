@@ -1,6 +1,6 @@
 # qam-bio
 
-Personal portfolio for **Qamar Ibrahim** — Senior Python / Django backend engineer working on AI automation and self-hosted infrastructure. Live at [qaam.work](https://qaam.work).
+Personal portfolio for **Qamar Shahzad** — Senior Python / Django backend engineer working on AI automation and self-hosted infrastructure. Live at [qaam.work](https://qaam.work).
 
 Built with Next.js 16 (App Router), React 19, TypeScript and Tailwind CSS 4, with a clay/neumorphic design system in `app/globals.css`.
 
