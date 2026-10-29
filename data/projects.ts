@@ -65,9 +65,9 @@ export const projects: Project[] = [
       'Restaurant platform with menu management, online ordering and an operations backend built on Django.',
     tech: ['Django', 'PostgreSQL', 'REST API', 'Next.js','Stripe'],
     icon: 'UtensilsCrossed',
-    accent: ['#123937', '#dfdfdf'],
+    accent: ['#0a0a0a', '#024439'],
     group: 'fullstack',
-    liveUrl: '',
+    liveUrl: 'https://khanz.qaam.work',
   },
   {
     id: 'bucther',
@@ -79,7 +79,19 @@ export const projects: Project[] = [
     icon: 'UtensilsCrossed',
     accent: ['#ac0404', '#eeeeee'],
     group: 'fullstack',
-    liveUrl: '',
+    liveUrl: 'https://butcher.qaam.work',
+  },
+  {
+    id: 'golf',
+    name: 'Sim membership Ecommerce Website',
+    category: 'Ecommerce',
+    description:
+      'Virtual Golf membership website with next.js frontend and stripe payment gateway.',
+    tech: ['Django', 'PostgreSQL', 'REST API', 'Next.js'],
+    icon: 'UtensilsCrossed',
+    accent: ['#65ff65', '#eeeeee'],
+    group: 'fullstack',
+    liveUrl: 'https://butcher.qaam.work',
   },
   {
     id: 'property-management',
